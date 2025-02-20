@@ -1,7 +1,11 @@
 <?php
 
+<<<<<<< Updated upstream
 use App\Http\Controllers\UserController;
 use App\Models\User;
+=======
+use App\Http\Controllers\FormationContorller;
+>>>>>>> Stashed changes
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');
@@ -23,5 +27,5 @@ Route::get('/user/{user}', [UserController::class, 'show'])->middleware(['auth']
 Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
-
+Route::view("formation", "formation");
 require __DIR__.'/auth.php';
