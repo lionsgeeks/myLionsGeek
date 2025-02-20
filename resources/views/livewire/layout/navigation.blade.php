@@ -3,8 +3,7 @@
 use App\Livewire\Actions\Logout;
 use Livewire\Volt\Component;
 
-new class extends Component
-{
+new class extends Component {
     /**
      * Log the current user out of the application.
      */
@@ -16,95 +15,165 @@ new class extends Component
     }
 }; ?>
 
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
-    <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
-            <div class="flex">
-                <!-- Logo -->
-                <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}" wire:navigate>
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
+   
+    <nav class="bg-[#101010] border-b px-9 border-gray-800">
+        <div class="max-w-[1600px] mx-auto px-4">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center pl-5 ">
+                    <a href="#" class="flex-shrink-0 hover:opacity-90 transition-opacity">
+                        <span class="text-white text-xl font-bold">Lions<span class="text-[#fee814]">Geek</span></span>
                     </a>
                 </div>
 
-                <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
+                <div class="flex pl-10 items-center space-x-8">
+                    <a href="#"
+                        class="flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium text-gray-400 hover:text-white">
+                        <i class="fas fa-users w-[18px] h-[13px]"></i>
+                        <span>Members</span>
+                    </a>
+
+                    <div class="relative flex items-center">
+                        <button onclick="toggleDropdown('spacesDropdown')"
+                            class="flex items-center justify-center space-x-2 text-gray-400 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                            <i class="fas fa-map-pin w-[18px] h-[13px]"></i>
+                            <span>Spaces</span>
+                            <i class="fas fa-chevron-down w-[16px] h-[12px] transform transition-transform"></i>
+                        </button>
+
+                        <div id="spacesDropdown"
+                            class="hidden absolute z-10 mt-36 ml-10 w-48 rounded-md shadow-lg bg-gray-900 ring-1 ring-black ring-opacity-5">
+                            <div class="py-1" role="menu">
+                                <a href="places" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700">Places</a>
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700">Reservations</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="#"
+                        class="flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium text-gray-400 hover:text-white">
+                        <i class="fas fa-calendar w-[18px] h-[13px]"></i>
+                        <span>Calendar</span>
+                    </a>
+
+                    <div class="relative flex items-center">
+                        <button onclick="toggleDropdown('resourcesDropdown')"
+                            class="flex items-center space-x-2 text-gray-400 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                            <i class="fas fa-desktop w-[18px] h-[13px]"></i>
+                            <span>Resources</span>
+                            <i class="fas fa-chevron-down w-[16px] h-[12px] transform transition-transform"></i>
+                        </button>
+
+                        <div id="resourcesDropdown"
+                            class="hidden absolute z-10 mt-36 ml-10 w-48 rounded-md shadow-lg bg-gray-900 ring-1 ring-black ring-opacity-5">
+                            <div class="py-1" role="menu">
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700">
+                                    <div class="flex items-center space-x-2">
+                                        <i class="fas fa-desktop w-[16px] h-[16px]"></i>
+                                        <span>Computers</span>
+                                    </div>
+                                </a>
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700">
+                                    <div class="flex items-center space-x-2">
+                                        <i class="fas fa-tools w-[16px] h-[16px]"></i>
+                                        <span>Equipment</span>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="relative flex items-center">
+                        <button onclick="toggleDropdown('learningDropdown')"
+                            class="flex items-center space-x-2 text-gray-400 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                            <i class="fas fa-graduation-cap w-[18px] h-[13px]"></i>
+                            <span>Learning</span>
+                            <i class="fas fa-chevron-down w-[16px] h-[12px] transform transition-transform"></i>
+                        </button>
+
+                        <div id="learningDropdown"
+                            class="hidden absolute z-10 mt-36 ml-10 w-48 rounded-md shadow-lg bg-gray-900 ring-1 ring-black ring-opacity-5">
+                            <div class="py-1" role="menu">
+                                <a href="#"
+                                    class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700">Training</a>
+                                <a href="#"
+                                    class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700">Attendance</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex items-center space-x-4 pr-5">
+                    <button class="text-gray-400 hover:text-white p-1">
+                        <i class="fas fa-bell w-[18px] h-[18px]"></i>
+                    </button>
+                    <button class="text-gray-400 hover:text-white p-1">
+                        <i class="fas fa-moon w-[18px] h-[18px]"></i>
+                    </button>
+
+                    <div class="relative ml-3">
+                        <button onclick="toggleDropdown('profileDropdown')"
+                            class="flex items-center space-x-3 focus:outline-none">
+                            <div class="text-right">
+                                <div class="text-white text-sm">khandari Nassima</div>
+                                <div class="text-gray-400 text-xs">Moderateur</div>
+                            </div>
+                            <div class="h-8 w-8 rounded-full bg-gray-300"></div>
+
+                        </button>
+
+                        <div id="profileDropdown"
+                            class="hidden absolute z-20 right-0 mt-2 w-48 rounded-md shadow-lg bg-gray-900 ring-1 ring-black ring-opacity-5">
+                            <div class="py-1" role="menu">
+                                <a href="#"
+                                    class="flex items-center space-x-2 px-4 py-2 text-sm text-gray-300 hover:bg-gray-700">
+                                    <i class="fas fa-cog w-[16px] h-[16px]"></i>
+                                    <span>Settings</span>
+                                </a>
+                                <a href="#"
+                                    class="flex items-center space-x-2 px-4 py-2 text-sm text-red-400 hover:bg-gray-700">
+                                    <i class="fas fa-sign-out-alt w-[16px] h-[16px]"></i>
+                                    <span>Logout</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-
-            <!-- Settings Dropdown -->
-            <div class="hidden sm:flex sm:items-center sm:ms-6">
-                <x-dropdown align="right" width="48">
-                    <x-slot name="trigger">
-                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                            <div x-data="{{ json_encode(['name' => auth()->user()->name]) }}" x-text="name" x-on:profile-updated.window="name = $event.detail.name"></div>
-
-                            <div class="ms-1">
-                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                </svg>
-                            </div>
-                        </button>
-                    </x-slot>
-
-                    <x-slot name="content">
-                        <x-dropdown-link :href="route('profile')" wire:navigate>
-                            {{ __('Profile') }}
-                        </x-dropdown-link>
-
-                        <!-- Authentication -->
-                        <button wire:click="logout" class="w-full text-start">
-                            <x-dropdown-link>
-                                {{ __('Log Out') }}
-                            </x-dropdown-link>
-                        </button>
-                    </x-slot>
-                </x-dropdown>
-            </div>
-
-            <!-- Hamburger -->
-            <div class="-me-2 flex items-center sm:hidden">
-                <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
-                    <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                        <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Responsive Navigation Menu -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
-                {{ __('Dashboard') }}
-            </x-responsive-nav-link>
         </div>
 
-        <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 border-t border-gray-200">
-            <div class="px-4">
-                <div class="font-medium text-base text-gray-800" x-data="{{ json_encode(['name' => auth()->user()->name]) }}" x-text="name" x-on:profile-updated.window="name = $event.detail.name"></div>
-                <div class="font-medium text-sm text-gray-500">{{ auth()->user()->email }}</div>
-            </div>
+        <script>
+            lucide.createIcons();
+    
+            function toggleDropdown(dropdownId) {
+                const dropdown = document.getElementById(dropdownId);
+                const allDropdowns = document.querySelectorAll('[id$="Dropdown"]');
+                const button = dropdown.previousElementSibling;
+                const icon = button.querySelector('[data-lucide="chevron-down"]');
+    
+                allDropdowns.forEach(d => {
+                    if (d.id !== dropdownId && !d.classList.contains('hidden')) {
+                        d.classList.add('hidden');
+                        const otherIcon = d.previousElementSibling.querySelector('[data-lucide="chevron-down"]');
+                        otherIcon.classList.remove('rotate-180');
+                    }
+                });
+    
+                dropdown.classList.toggle('hidden');
+                icon.classList.toggle('rotate-180');
+            }
+    
+            document.addEventListener('click', (e) => {
+                const dropdowns = document.querySelectorAll('[id$="Dropdown"]');
+                dropdowns.forEach(dropdown => {
+                    const button = dropdown.previousElementSibling;
+                    if (!dropdown.contains(e.target) && !button.contains(e.target)) {
+                        dropdown.classList.add('hidden');
+                        const icon = button.querySelector('[data-lucide="chevron-down"]');
+                        icon.classList.remove('rotate-180');
+                    }
+                });
+            });
+        </script>
+    </nav>
 
-            <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('profile')" wire:navigate>
-                    {{ __('Profile') }}
-                </x-responsive-nav-link>
-
-                <!-- Authentication -->
-                <button wire:click="logout" class="w-full text-start">
-                    <x-responsive-nav-link>
-                        {{ __('Log Out') }}
-                    </x-responsive-nav-link>
-                </button>
-            </div>
-        </div>
-    </div>
-</nav>
+   

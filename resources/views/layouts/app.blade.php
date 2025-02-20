@@ -13,6 +13,10 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <link href="https://unpkg.com/lucide-icons/dist/umd/lucide.css" rel="stylesheet">
+        <script src="https://unpkg.com/lucide-icons"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
