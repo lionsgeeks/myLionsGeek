@@ -25,6 +25,7 @@ new class extends Component {
                     </a>
                 </div>
 
+<<<<<<< HEAD
                 <div class="flex pl-10 items-center space-x-8">
                     <a href="#"
                         class="flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium text-gray-400 hover:text-white">
@@ -137,6 +138,16 @@ new class extends Component {
                             </div>
                         </div>
                     </div>
+=======
+                <!-- Navigation Links -->
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
+                        {{ __('Dashboard') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('computer.create')" :active="request()->routeIs('computer.create')" wire:navigate>
+                        {{ __('Computers') }}
+                    </x-nav-link>
+>>>>>>> sara
                 </div>
             </div>
         </div>
