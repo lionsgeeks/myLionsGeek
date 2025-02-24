@@ -4,9 +4,11 @@ namespace App\Livewire\Formation;
 
 use App\Models\Formation ;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class Formations extends Component
 {
+    use WithPagination;
     public $class_name;
     public $formation_name;
     public $start_time;
@@ -14,7 +16,7 @@ class Formations extends Component
     public $selectedFormationId;
     public $updateData=false;
     public $showModal=false;
-
+    public $search;
 
     public function mount()
     {
@@ -70,7 +72,7 @@ class Formations extends Component
         $this->showModal=true;
 
     }
-   
+  
 
     public function cancel()
     {
@@ -78,8 +80,11 @@ class Formations extends Component
     }
     public function render()
     {
-        return view('livewire.formation.formation',[
-        'formations'=>Formation::all()
-    ]);
+        $formations = Formation::where('class_name', 'like', '%' . $this->search . '%')
+            ->orWhere('formation_name', 'like', '%' . $this->search . '%')
+            ->latest()
+            ->paginate(5);
+
+        return view('livewire.formation.formation', ['formations' => $formations]);
     }
 }

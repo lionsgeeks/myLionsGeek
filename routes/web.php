@@ -10,6 +10,9 @@ use App\Livewire\Computer\CreateComputer;
 use App\Livewire\Computer\EditComputer;
 use App\Models\Computer;
 use App\Http\Controllers\EquipmentController;
+// use App\Http\Controllers\UserController;
+// use App\Models\User;
+// use App\Http\Controllers\FormationContorller;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');

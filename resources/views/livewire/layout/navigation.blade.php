@@ -25,14 +25,12 @@ new class extends Component {
                     </a>
                 </div>
 
-                
-
-            <div class="flex pl-10 items-center space-x-8">
-                <a href="#"
-                    class="flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium text-gray-400 hover:text-white">
-                    <i class="fas fa-users w-[18px] h-[13px]"></i>
-                    <span>Members</span>
-                </a>
+                <div class="flex pl-10 items-center space-x-8">
+                    <a href="#"
+                        class="flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium text-gray-400 hover:text-white">
+                        <i class="fas fa-users w-[18px] h-[13px]"></i>
+                        <span>Members</span>
+                    </a>
 
                 <div class="relative flex items-center">
                     <button onclick="toggleDropdown('spacesDropdown')"
@@ -124,23 +122,23 @@ new class extends Component {
 
                     </button>
 
-                    <div id="profileDropdown"
-                        class="hidden absolute z-20 right-0 mt-2 w-48 rounded-md shadow-lg bg-gray-900 ring-1 ring-black ring-opacity-5">
-                        <div class="py-1" role="menu">
-                            <a href="#"
-                                class="flex items-center space-x-2 px-4 py-2 text-sm text-gray-300 hover:bg-gray-700">
-                                <i class="fas fa-cog w-[16px] h-[16px]"></i>
-                                <span>Settings</span>
-                            </a>
-                            <a href="#"
-                                class="flex items-center space-x-2 px-4 py-2 text-sm text-red-400 hover:bg-gray-700">
-                                <i class="fas fa-sign-out-alt w-[16px] h-[16px]"></i>
-                                <span>Logout</span>
-                            </a>
+                        <div id="profileDropdown"
+                            class="hidden absolute z-20 right-0 mt-2 w-48 rounded-md shadow-lg bg-gray-900 ring-1 ring-black ring-opacity-5">
+                            <div class="py-1" role="menu">
+                                <a href="#"
+                                    class="flex items-center space-x-2 px-4 py-2 text-sm text-gray-300 hover:bg-gray-700">
+                                    <i class="fas fa-cog w-[16px] h-[16px]"></i>
+                                    <span>Settings</span>
+                                </a>
+                                <a href="#"
+                                    class="flex items-center space-x-2 px-4 py-2 text-sm text-red-400 hover:bg-gray-700">
+                                    <i class="fas fa-sign-out-alt w-[16px] h-[16px]"></i>
+                                    <span>Logout</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
-              
             </div>
         </div>
 
