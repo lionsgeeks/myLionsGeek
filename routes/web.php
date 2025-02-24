@@ -9,6 +9,7 @@ use App\Http\Controllers\ComputerController;
 use App\Livewire\Computer\CreateComputer;
 use App\Livewire\Computer\EditComputer;
 use App\Models\Computer;
+use App\Http\Controllers\EquipmentController;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');
@@ -19,12 +20,16 @@ Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
-Route::view('create', 'create');   
+Route::view('create', 'create');
 
-Route::view('places', 'places');   
+Route::view('places', 'places');
 Route::get('/users', [UserController::class, 'index'])->middleware(['auth']);
 Route::get('/addusers', [UserController::class, 'adduser'])->middleware(['auth']);
 Route::get('/user/{user}', [UserController::class, 'show'])->middleware(['auth']);
+
+
+
+Route::get('/equipment',[EquipmentController::class,'index'])->middleware(["auth"]);
 
 
 Route::view('profile', 'profile')

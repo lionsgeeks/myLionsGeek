@@ -33,7 +33,7 @@ class IndexUsers extends Component
         if ($this->statusQuery) {
             $usersQuery->where('status', $this->statusQuery);
         }
-        
+
         return view(
             'livewire.user.index-users',
             [

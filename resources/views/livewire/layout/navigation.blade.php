@@ -15,7 +15,7 @@ new class extends Component {
     }
 }; ?>
 
-   
+
     <nav class="bg-[#101010] border-b px-9 border-gray-800">
         <div class="max-w-[1600px] mx-auto px-4">
             <div class="flex items-center justify-between h-16">
@@ -25,7 +25,6 @@ new class extends Component {
                     </a>
                 </div>
 
-<<<<<<< HEAD
                 <div class="flex pl-10 items-center space-x-8">
                     <a href="#"
                         class="flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium text-gray-400 hover:text-white">
@@ -138,7 +137,6 @@ new class extends Component {
                             </div>
                         </div>
                     </div>
-=======
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
@@ -147,20 +145,19 @@ new class extends Component {
                     <x-nav-link :href="route('computer.create')" :active="request()->routeIs('computer.create')" wire:navigate>
                         {{ __('Computers') }}
                     </x-nav-link>
->>>>>>> sara
                 </div>
             </div>
         </div>
 
         <script>
             lucide.createIcons();
-    
+
             function toggleDropdown(dropdownId) {
                 const dropdown = document.getElementById(dropdownId);
                 const allDropdowns = document.querySelectorAll('[id$="Dropdown"]');
                 const button = dropdown.previousElementSibling;
                 const icon = button.querySelector('[data-lucide="chevron-down"]');
-    
+
                 allDropdowns.forEach(d => {
                     if (d.id !== dropdownId && !d.classList.contains('hidden')) {
                         d.classList.add('hidden');
@@ -168,11 +165,11 @@ new class extends Component {
                         otherIcon.classList.remove('rotate-180');
                     }
                 });
-    
+
                 dropdown.classList.toggle('hidden');
                 icon.classList.toggle('rotate-180');
             }
-    
+
             document.addEventListener('click', (e) => {
                 const dropdowns = document.querySelectorAll('[id$="Dropdown"]');
                 dropdowns.forEach(dropdown => {
@@ -187,4 +184,4 @@ new class extends Component {
         </script>
     </nav>
 
-   
+
