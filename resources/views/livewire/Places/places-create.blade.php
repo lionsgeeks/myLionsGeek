@@ -1,4 +1,4 @@
-<div class="bg-[#101010] p-10">
+<div class="bg-[#101010] p-10 min-h-screen">
     <div class="grid grid-cols-3 gap-10 px-[2vw]">
         <div wire:click="$set('showModal', true)"
             class="flex flex-col items-center justify-center border-dashed border-2 border-white h-[21.8rem] bg-[#101010] rounded-lg hover:shadow-lg transition-shadow duration-300">
