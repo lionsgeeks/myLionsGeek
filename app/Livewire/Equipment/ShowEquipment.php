@@ -137,7 +137,7 @@ class ShowEquipment extends Component
                     ->orWhere('mark', 'like', '%' . $this->search . '%');
             });
         }
-        if ($this->equipmentType) {
+        if ($this->equipmentType && $this->equipmentType !== 'all') {
             $EquipmentQuery->where(function ($query) {
                 $query->where('equipment_type', 'like', '%' . $this->equipmentType . '%');
             });
