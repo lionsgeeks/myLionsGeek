@@ -93,8 +93,7 @@
         </div>
     </div>
 
-
-    <div class="flex flex-wrap items-center justify-start gap-5 mt-8">
+    <div class="grid grid-cols-4 items-center justify-start gap-5 mt-8">
         @foreach ($equipments as $equipment)
             <div class="flex flex-col w-[30vw] min-h-[40vh] bg-[#2E2E2E] rounded-md relative">
                 <div class="flex flex-col  items-center absolute right-0 top-1">
