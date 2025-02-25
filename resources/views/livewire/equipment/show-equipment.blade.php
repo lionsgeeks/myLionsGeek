@@ -1,4 +1,4 @@
-<div class="bg-[#101010] min-h-screen text-white flex flex-col p-8 gap-y-5">
+<div class="bg-[#171717] min-h-screen text-white flex flex-col p-8 gap-y-5">
     <div class="flex items-center justify-between ">
         <h1 class="text-3xl text-[#fee814] font-bold">Equipment</h1>
         <x-modal name="modal" :show="$errors->isNotEmpty()">
@@ -69,10 +69,10 @@
     <div class="flex justify-between w-full mt-5">
         <div class="flex justify-start items-center gap-x-3">
             <input
-                class="w-[20vw] bg-[#1f2937] focus:ring-2 focus:border-none focus:ring-[#fee814] focus:outline-none rounded-md"
+                class="w-[20vw] bg-[#2E2E2E] focus:ring-2 focus:border-none focus:ring-[#fee814] focus:outline-none rounded-md placeholder:text-white"
                 type="text" wire:model.live="search" placeholder="search">
             <select
-                class="w-[18vw] bg-[#1f2937] focus:ring-2 focus:border-none focus:ring-[#fee814] focus:outline-none rounded-md"
+                class="w-[18vw] bg-[#2E2E2E] focus:ring-2 focus:border-none focus:ring-[#fee814] focus:outline-none rounded-md"
                 wire:model.live="equipmentType">
                 <option disabled>choose equipment type</option>
                 <option value="all">all</option>
@@ -96,7 +96,7 @@
 
     <div class="flex flex-wrap items-center justify-start gap-5 mt-8">
         @foreach ($equipments as $equipment)
-            <div class="flex flex-col w-[30vw] min-h-[40vh] bg-[#1f2937] rounded-md relative">
+            <div class="flex flex-col w-[30vw] min-h-[40vh] bg-[#2E2E2E] rounded-md relative">
                 <div class="flex flex-col  items-center absolute right-0 top-1">
                     <button class=""
                         x-on:click.prevent="$dispatch('open-modal', 'delete-equipment{{ $equipment->id }}')">
