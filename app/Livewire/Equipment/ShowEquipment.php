@@ -143,7 +143,7 @@ class ShowEquipment extends Component
             });
         }
         return view('livewire.equipment.show-equipment', [
-            'equipments' => $EquipmentQuery->get()
+            'equipments' => $EquipmentQuery->paginate(8)
         ]);
     }
 }
