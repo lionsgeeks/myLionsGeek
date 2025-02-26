@@ -1,10 +1,8 @@
 <div class="bg-[#171717] min-h-screen text-white flex flex-col p-8 gap-y-5 px-16">
     <div class="flex items-center justify-between ">
-        <h1 class="text-3xl">Equipment</h1>
-        <button class="px-4 py-2 bg-yellow-500 text-white rounded-md  transition"
-        wire:click="$set('modal' , true)">{{ __('create equipment') }}</button>
+        <h1 class="text-3xl text-[#fee814] font-bold">Equipment</h1>
         @if ($modal)
-            <div class="w-full h-full flex items-center justify-center fixed top-0 bg-[#000000b3]">
+            <div class="w-full h-full flex items-center justify-center fixed left-0 top-0 bg-[#000000b3] z-30">
                 <div class="p-5 gap-2 flex flex-col items-center bg-[#111827] min-w-[40vw] rounded-md ">
                     <form enctype="multipart/form-data" wire:submit='equipment' class="flex flex-col gap-y-3  w-full">
                         <h1 class="text-yellow-500 text-xl font-bold border-b pb-2">{{ $updateData ? "Edit Equipment" : "Create Equipment" }}</h1>
@@ -82,22 +80,24 @@
                 <option value="podcast">podcast</option>
                 <option value="other">other</option>
             </select>
-            <button class="px-4 py-2 w-1/3 bg-yellow-500 text-black rounded-md  transition"
+            <button class="px-4 py-2 w-1/3 bg-yellow-500 text-black font-semibold rounded-md  transition"
                 wire:click="resetSearch">Reset Filter</button>
         </div>
         <div>
-            <button class="px-4 py-2 bg-yellow-500 text-black rounded-md  transition"
-                x-on:click.prevent="$dispatch('open-modal', 'modal' )">{{ __('+ Add equipment') }}</button>
+            <button class="px-4 py-2 bg-yellow-500 text-black font-semibold rounded-md  transition"
+                    wire:click="$set('modal' , true)">{{ __('+ Add Equipment') }}</button>
+
 
         </div>
     </div>
 
     <div class="grid grid-cols-4 items-center justify-start gap-5 mt-8">
         @foreach ($equipments as $equipment)
-            <div class="flex flex-col w-[30vw] min-h-[40vh] bg-[#1f2937] rounded-md">
+            <div class="flex flex-col min-h-[40vh] bg-[#2E2E2E] rounded-md relative ">
+
                     <div class="">
                         @foreach ($equipment->images as $image)
-                            <img class="rounded-t-md" src="{{ asset('storage/images/equipment/' . $image->path ) }}" alt="" >
+                            <img class="rounded-t-md object-cover w-full h-[25vh] " src="{{ asset('storage/images/equipment/' . $image->path ) }}" alt="" >
                         @endforeach
                         {{-- <img class="rounded-t-md" src="{{ asset('storage/images/equipment/' . $equipment->images->first()->path ) }}" alt="" > --}}
                     </div>
@@ -110,7 +110,7 @@
                                 class="text-yellow-500">{{ $equipment->equipment_type }}</span></h1>
                         <h1 class="">State : <span class="text-yellow-500">{{ $equipment->state }}</span></h1>
                     </div>
-                    <div class="flex flex-col items-center gap-y-3">
+                    <div class="flex flex-col items-center absolute right-0 top-1">
                         <button class=""
                             wire:click="confirmDelete({{ $equipment->id }})">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#ef4444" d="M19 4h-3.5l-1-1h-5l-1 1H5v2h14M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6z"/></svg>
@@ -132,11 +132,9 @@
                                 </div>
                             </div>
                         @endif
-
                         <button wire:click='edit({{ $equipment->id }})'
                             class="px-4 py-2 "
                             ><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="#3b82f6" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="m16.475 5.408l2.117 2.117m-.756-3.982L12.109 9.27a2.1 2.1 0 0 0-.58 1.082L11 13l2.648-.53c.41-.082.786-.283 1.082-.579l5.727-5.727a1.853 1.853 0 1 0-2.621-2.621"/><path d="M19 15v3a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h3"/></g></svg></button>
-
                     </div>
                 </div>
             </div>
