@@ -2,6 +2,7 @@
 
 namespace App\Livewire\User;
 
+use App\Livewire\Forms\UserForm;
 use App\Models\User;
 use Livewire\Component;
 
@@ -9,6 +10,25 @@ class IndexUsers extends Component
 {
     public $search = '', $roleQuery = '', $statusQuery = '';
     public $members;
+
+    public UserForm $userForm;
+    public $showModal = false;
+
+    public function save() {
+        $this->userForm->store();
+        $this->showModal = false;
+        $this->redirect('/users');
+    }
+    public function toggleModal()
+    {
+        $this->showModal = !$this->showModal;
+    }
+    public function cancel()
+    {
+        $this->reset();
+        $this->showModal = false;
+    }
+
     public function delete(User $user)
     {
         $user->delete();

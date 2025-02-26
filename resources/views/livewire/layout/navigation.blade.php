@@ -19,11 +19,13 @@ new class extends Component {
     <nav class="bg-[#101010] border-b px-9 border-gray-800">
         <div class="max-w-[1600px] mx-auto px-4">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center pl-5 ">
-                    <a href="#" class="flex-shrink-0 hover:opacity-90 transition-opacity">
+                    <a href="#" class="flex items-center pl-5 hover:opacity-90 transition-opacity">
+                        <div class="mr-2">
+                            <img src="https://mylionsgeek.ma/logo1.png" alt="logo" class="w-[22px] h-[22px] invert "
+                                loading="lazy">
+                        </div>
                         <span class="text-white text-xl font-bold">Lions<span class="text-[#fee814]">Geek</span></span>
                     </a>
-                </div>
 
                 <div class="flex pl-10 items-center space-x-8">
                     <a href="#"

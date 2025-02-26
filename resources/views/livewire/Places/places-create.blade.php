@@ -18,7 +18,7 @@
                         {{ $place->place_type }}
                     </h1>
                 </div>
-                <div class="flex justify-between items-center bg-gray-900 p-4 rounded-b-lg">
+                <div class="flex justify-between items-center bg-[#2E2E2E] p-4 rounded-b-lg">
                     <div>
                         <h1 class="text-white text-lg font-semibold">{{ $place->name }}</h1>
                         <a href="#" class="block text-[#fee814] mt-2 text-sm hover:underline">See Gallery</a>
