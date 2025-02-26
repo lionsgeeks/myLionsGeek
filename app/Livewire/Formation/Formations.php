@@ -32,7 +32,6 @@ class Formations extends Component
         $this->selectedFormationId = null;
         $this->updateData = false;
         $this->showModal=false;
-
     }
 
     public function formation()
@@ -72,7 +71,7 @@ class Formations extends Component
         $this->showModal=true;
 
     }
-  
+
 
     public function cancel()
     {

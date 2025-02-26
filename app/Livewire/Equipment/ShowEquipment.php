@@ -3,6 +3,7 @@
 namespace App\Livewire\Equipment;
 
 use App\Models\Equipment;
+use App\Models\Image;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
@@ -25,30 +26,41 @@ class ShowEquipment extends Component
     public $equipment_type = '';
 
     #[Rule('required', message: 'please choose image')]
-    public $image;
+    public $images;
 
+    public $selectedEquipmentId;
+    public $updateData=false;
+    public $modal = false;
+    public $deleteModal = null ;
 
     // create equipment
-    public function create () {
+    public function equipment () {
 
-        $this->validate();
-
-        // $image = $this->image;
-
-        // $imageName = hash("sha256", file_get_contents($image)) . "." . $image->getClientOriginalExtension();
-
-        // $image->move(storage_path("app/public/images"), $imageName);
-
-        $image = $this->image->store("images/equipment", "public");
-
-        $equipment = Equipment::create([
-            'reference' => $this->reference,
-            'mark' => $this->mark,
-            'equipment_type' => $this->equipment_type,
+        // $this->validate();
+        $validate = $this->validate([
+            'reference' => 'required',
+            'mark' => 'required',
+            'equipment_type' => 'required',
+            'images.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-        $equipment->images()->create([
-            'path' => $image
-        ]);
+
+        if ($this->updateData) {
+            $equipment = Equipment::findOrFail($this->selectedEquipmentId);
+            $equipment->update($validate);
+
+
+            if ($this->images) {
+                foreach ($equipment->images as $image) {
+                    $image->erase("equipment");
+                }
+                Image::store($equipment, $this->images, 'equipment');
+            }
+
+        } else {
+            $equipment = Equipment::create($validate);
+            Image::store($equipment, $this->images, 'equipment');
+
+        }
 
         $this->resetForm();
     }
@@ -56,63 +68,64 @@ class ShowEquipment extends Component
     // Edit Equipment
     public function edit(Equipment $equipment)
     {
+        $this->selectedEquipmentId = $equipment->id;
+        $this->updateData = true;
+        $this->modal = true;
         $this->reference = $equipment->reference;
         $this->mark = $equipment->mark;
         $this->equipment_type = $equipment->equipment_type;
-        // $this->image = $equipment->images->first()->path;
+        // $this->images = $equipment->images()->first()->path;
     }
 
     // update equipment
-    public function update(Equipment $equipment)
+    // public function update(Equipment $equipment)
+    // {
+    //     $this->validate();
+
+    //         $equipment->update([
+    //             'reference' => $this->reference,
+    //             'mark' => $this->mark,
+    //             'equipment_type' => $this->equipment_type,
+    //         ]);
+
+    //         if ($this->images) {
+    //             $storage = Storage::disk("public");
+
+    //             // Delete old image if exists
+    //             $oldImage = $equipment->images->first();
+    //             if ($oldImage) {
+    //                 $storage->delete($oldImage->path);
+    //                 $oldImage->delete();
+    //             }
+
+    //             // Store new image
+    //             $newImagePath = $this->images->store("images/equipment", "public");
+
+    //             // Save new image in the morph table
+    //             $equipment->images()->create([
+    //                 'path' => $newImagePath,
+    //             ]);
+    //         }
+    //         $this->resetForm();
+    // }
+
+    // confirm delete
+    public function confirmDelete($id)
     {
-        $this->validate();
-
-            $equipment->update([
-                'reference' => $this->reference,
-                'mark' => $this->mark,
-                'equipment_type' => $this->equipment_type,
-            ]);
-
-            if ($this->image) {
-                $storage = Storage::disk("public");
-
-                // Delete old image if exists
-                $oldImage = $equipment->images->first();
-                if ($oldImage) {
-                    $storage->delete($oldImage->path);
-                    $oldImage->delete();
-                }
-
-                // Store new image
-                $newImagePath = $this->image->store("images/equipment", "public");
-
-                // Save new image in the morph table
-                $equipment->images()->create([
-                    'path' => $newImagePath,
-                ]);
-            }
-            $this->resetForm();
+        $this->deleteModal = $id;
     }
 
     // delete equipment
     public function delete (Equipment $equipment) {
-        // $path = $equipment->images->first()->path;
-        // $storage = Storage::disk("public");
-
-        // if ($storage->exists($path)) {
-        //     $storage->delete($path);
-        //     $equipment->delete();
-        // }
+        foreach ($equipment->images as $image) {
+            $image->erase("equipment");
+        }
         $equipment->delete();
-
-
     }
 
     public function cancel() {
         $this->resetForm();
     }
-
-
 
     // reset form
     private function resetForm()
@@ -120,9 +133,12 @@ class ShowEquipment extends Component
         $this->reference = '';
         $this->mark = '';
         $this->equipment_type = '';
-        $this->image = null;
+        $this->images = null;
+        $this->modal = false;
+        $this->resetValidation();
     }
 
+    // reset search
     public function resetSearch(){
         $this->reset();
     }

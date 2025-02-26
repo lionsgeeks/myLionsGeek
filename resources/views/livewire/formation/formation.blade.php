@@ -1,10 +1,10 @@
 <div class="p-10  ">
     <!-- Search  -->
     <div id="search" class="relative pb-4 w-full max-w-md mx-auto">
-        <input 
-            wire:model.live.debounce.500ms="search" 
-            type="text" 
-            placeholder="🔍 Search formations..." 
+        <input
+            wire:model.live.debounce.500ms="search"
+            type="text"
+            placeholder="🔍 Search formations..."
             class="w-full border border-gray-300 rounded-lg py-3 pl-12 pr-4 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none shadow-sm"
         >
         <svg class="absolute left-4 top-3 w-6 h-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">

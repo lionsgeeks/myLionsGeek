@@ -21,15 +21,5 @@ class Equipment extends Model
         return $this->morphMany(Image::class , 'imagable');
     }
 
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::deleting(function ($equipment) {
-            foreach ($equipment->images as $image) {
-                Storage::disk("public")->delete($image->path);
-                $image->delete();
-            }
-        });
-    }
+    
 }

@@ -73,7 +73,7 @@ new class extends Component {
                                     <span>Computers</span>
                                 </div>
                             </a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700">
+                            <a href="/equipment" class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700">
                                 <div class="flex items-center space-x-2">
                                     <i class="fas fa-tools w-[16px] h-[16px]"></i>
                                     <span>Equipment</span>
