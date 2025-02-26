@@ -26,25 +26,27 @@ class PlacesCreate extends Component
             'name' => 'required|string',
             'place_type' => 'required|string',
             'state' => 'required|boolean',
-            'image' => 'nullable|image|max:2048',
+            'image' => 'nullable|image'
         ]);
-
-        $validated['image'] = $this->image ? $this->image->store('places', 'public') : null;
-
+    
         if ($this->selectedPlaceId) {
-
             $place = Places::findOrFail($this->selectedPlaceId);
             $place->update($validated);
         } else {
-
-            Places::create($validated);
+            $place = Places::create($validated); 
         }
-
+    
+        if ($this->image) {
+            $imagePath = $this->image->store("places", "public");
+            $place->images()->create(['path' => $imagePath]);
+        }
+    
         $this->reset(['name', 'place_type', 'state', 'image', 'selectedPlaceId']);
-
+    
         $this->places = Places::all();
         $this->showModal = false;
     }
+    
 
     public function edit($id)
     {
