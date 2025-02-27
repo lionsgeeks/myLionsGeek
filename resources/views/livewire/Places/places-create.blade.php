@@ -1,16 +1,16 @@
 <div class="bg-[#101010] p-10 min-h-screen">
     <div class="grid grid-cols-3 gap-10 px-[2vw]">
         <div wire:click="$set('showModal', true)"
-            class="flex flex-col items-center justify-center border-dashed border-2 border-white h-[21.8rem] bg-[#101010] rounded-lg hover:shadow-lg transition-shadow duration-300">
+            class="flex flex-col items-center justify-center border-dashed border-2 border-white h-[20.9rem] bg-[#101010] rounded-lg hover:shadow-lg transition-shadow duration-300">
             <button class="text-white text-4xl font-bold hover:scale-110 transition-transform duration-300">+</button>
             <span class="text-white mt-2 text-lg font-medium">Add Place</span>
         </div>
 
         @foreach ($places as $place)
-            <div class="rounded-lg overflow-hidden shadow-xl hover:shadow-xl transition-shadow duration-300">
+            <div class="rounded-lg overflow-hidden  shadow-xl hover:shadow-xl transition-shadow duration-300">
                 <div class="relative">
                     @foreach ($place->images as $image)
-                        <img class="rounded-t-lg w-full h-64 object-cover" src="{{ asset('storage/images/places/' . $image->path) }}"
+                        <img class="rounded-t-lg w-full h-60 object-cover" src="{{ asset('storage/images/places/' . $image->path) }}"
                             alt="">
                     @endforeach
                     <h1
@@ -24,12 +24,12 @@
                         <a href="#" class="block text-[#fee814] mt-2 text-sm hover:underline">See Gallery</a>
                     </div>
                     <div class="flex flex-col space-y-2">
-                        <button class="text-blue-500 px-2 py-1 hover:text-blue-700 transition-colors duration-300"
+                        <button class="text-gray-500 px-2 py-1 hover:text-blue-700 transition-colors duration-300"
                             wire:click="edit({{ $place->id }})">
                             <i class="fa-solid fa-pen-to-square"></i>
                         </button>
                         <button wire:click="delete({{ $place->id }})"
-                            class="text-red-500 hover:text-red-700 transition-colors duration-300">
+                            class="text-gray-500 hover:text-red-700 transition-colors duration-300">
                             <i class="fa-solid fa-trash"></i>
                         </button>
                     </div>

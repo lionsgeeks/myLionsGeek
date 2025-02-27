@@ -96,7 +96,7 @@ new class extends Component {
                     <div id="learningDropdown"
                         class="hidden absolute z-10 mt-36 ml-10 w-48 rounded-md shadow-lg bg-gray-900 ring-1 ring-black ring-opacity-5">
                         <div class="py-1" role="menu">
-                            <a href="#"
+                            <a href="formation"
                                 class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700">Training</a>
                             <a href="#"
                                 class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700">Attendance</a>

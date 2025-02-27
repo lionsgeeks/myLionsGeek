@@ -1,33 +1,34 @@
-<div class="p-10  ">
+<div class="p-10  bg-[#171717] min-h-screen">
+    
     <!-- Search  -->
-    <div id="search" class="relative pb-4 w-full max-w-md mx-auto">
+    <div id="search" class="relative pb-8 w-full max-w-md ml-12 ">
         <input
             wire:model.live.debounce.500ms="search"
             type="text"
-            placeholder="🔍 Search formations..."
-            class="w-full border border-gray-300 rounded-lg py-3 pl-12 pr-4 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none shadow-sm"
-        >
-        <svg class="absolute left-4 top-3 w-6 h-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            placeholder="Search by formations..."
+            class="border border-gray-600 p-2 rounded-lg w-full pl-12 bg-[#2E2E2E] text-white focus:ring-2 focus:ring-[#fee814] focus:outline-none placeholder:text-sm">
+
+            <svg class="absolute left-4 top-3 w-6 h-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M17 10A7 7 0 1110 3a7 7 0 017 7z" />
         </svg>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-[3vw]">
         <!-- Add Formation  -->
-        <div class="flex flex-col items-center justify-center border-dashed border-2 border-gray-400 h-72 bg-gray-50 rounded-lg hover:border-gray-600 transition-colors cursor-pointer hover:shadow-md"
+        <div class="flex flex-col items-center justify-center border-dashed border-2 border-white h-75 rounded-lg hover:border-gray-600 transition-colors cursor-pointer hover:shadow-md"
              wire:click="$set('showModal', true)">
-            <button class="text-gray-700 text-4xl font-bold">+</button>
-            <span class="text-gray-600 font-medium mt-2">
+            <button class="text-white text-4xl font-bold">+</button>
+            <span class="text-white font-medium mt-2">
                 {{ $updateData ? 'Edit Formation' : 'Add Formation' }}
             </span>
         </div>  
 
         <!-- Formation Cards -->
         @foreach ($formations as $formation)
-        <div wire:key="{{ $formation->id }}" class="relative rounded-lg h-72 overflow-hidden shadow-md bg-white hover:shadow-xl transition-all transform hover:scale-105">
+        <div wire:key="{{ $formation->id }}" class="relative rounded-lg h-72 overflow-hidden shadow-md  hover:shadow-xl transition-all transform hover:scale-105">
             <img src="https://via.placeholder.com/300" alt="Formation Image" class="h-full w-full object-cover">
-            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 via-black/50 to-transparent p-5 rounded-b-lg">
-                <h3 class="text-white font-semibold text-lg">{{ $formation->class_name }}</h3>
+            <div class="absolute bottom-0 left-0 right-0 bg-[#2E2E2E]  p-5 rounded-b-lg">
+                <h3 class="text-[#fee814] font-semibold text-lg">{{ $formation->class_name }}</h3>
                 <p class="text-gray-300 text-sm">{{ $formation->formation_name }}</p>
                 <div class="text-gray-400 text-xs space-y-1 mt-2">
                     <p>📅 Start: <span class="text-gray-200">{{ $formation->start_time }}</span></p>
