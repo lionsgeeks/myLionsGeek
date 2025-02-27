@@ -62,37 +62,37 @@
     <!-- Modal -->
     @if ($showModal)
     <div class="fixed inset-0 bg-black/50 flex items-center justify-center">
-        <div class="bg-white rounded-lg shadow-lg p-8 max-w-md w-full">
-            <h2 class="text-2xl font-bold text-gray-800 mb-6">
-                {{ $updateData ? '🎓 Edit Formation' : '🎓 Add Formation' }}
+        <div class="bg-gray-900 rounded-lg shadow-lg p-8 max-w-md w-full">
+            <h2 class="text-xl font-bold mb-4 text-[#fee814] border-b pb-2">
+                {{ $updateData ? 'Edit Formation' : 'Add Formation' }}
             </h2>
             <form class="space-y-6" wire:submit="formation">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Class Name</label>
+                    <label class="lock text-sm font-medium text-gray-300 ">Class Name :</label>
                     <input type="text" wire:model="class_name" placeholder="Enter Class Name"
-                        class="mt-2 p-3 w-full border rounded-lg focus:ring-2 focus:ring-gray-400">
+                        class="w-full mt-1 border border-gray-600 rounded-lg p-2 bg-gray-800 text-white focus:ring-2 focus:ring-[#fee814] focus:outline-none">
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Formation Name</label>
+                    <label class="lock text-sm font-medium text-gray-300 ">Formation Name :</label>
                     <select wire:model="formation_name"
-                        class="mt-2 p-3 w-full border rounded-lg focus:ring-2 focus:ring-gray-400">
-                        <option selected disabled>Select Formation</option>
+                        class="w-full mt-1 border border-gray-600 rounded-lg p-2 bg-gray-800 text-white focus:ring-2 focus:ring-[#fee814] focus:outline-none">
+                        <option selected disabled value="">Select Formation</option>
                         <option value="Coding">Coding</option>
                         <option value="Media">Media</option>
                     </select>
                 </div>
                 <div class="flex space-x-4">
                     <div>
-                        <label for="">start :</label>
-                        <input type="date" wire:model="start_time" class="p-3 w-full border rounded-lg">
+                        <label class="lock text-sm font-medium text-gray-300 " for="">start :</label>
+                        <input type="date" wire:model="start_time" class="w-full mt-1 border border-gray-600 rounded-lg p-2 bg-gray-800 text-white focus:ring-2 focus:ring-[#fee814] focus:outline-none">
                     </div>
                     <div>
-                        <label for="">End :</label>
-                        <input type="date" wire:model="end_time" class="p-3 w-full border rounded-lg">
+                        <label class="lock text-sm font-medium text-gray-300 " for="">End :</label>
+                        <input type="date" wire:model="end_time" class="w-full mt-1 border border-gray-600 rounded-lg p-2 bg-gray-800 text-white focus:ring-2 focus:ring-[#fee814] focus:outline-none">
                     </div>
                 </div>
-                <div class="flex justify-between mt-6">
-                    <button  wire:click="cancel" class="px-4 py-2 bg-gray-700 text-white rounded-lg">Cancel</button>
+                <div class="flex justify-end gap-3 mt-6">
+                    <button type="button" wire:click="cancel" class="px-4 py-2 bg-gray-700 text-white rounded-lg">Cancel</button>
                     <button type="submit" class="px-4 py-2 bg-yellow-500 text-white rounded-lg">{{ $updateData ? 'Update' : 'Create' }}</button>
                 </div>
             </form>
