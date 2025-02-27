@@ -10,7 +10,7 @@
             <div class="rounded-lg overflow-hidden shadow-xl hover:shadow-xl transition-shadow duration-300">
                 <div class="relative">
                     @foreach ($place->images as $image)
-                        <img class="rounded-t-lg w-full h-64 object-cover" src="{{ asset('storage/' . $image->path) }}"
+                        <img class="rounded-t-lg w-full h-64 object-cover" src="{{ asset('storage/images/places/' . $image->path) }}"
                             alt="">
                     @endforeach
                     <h1
@@ -43,7 +43,7 @@
             <div
                 class="bg-gray-900 rounded-lg p-6 w-[90%] max-w-lg shadow-2xl transform transition-transform duration-300 scale-100">
                 <h2 class="text-xl font-bold mb-4 text-[#fee814] border-b pb-2">Ajouter une place</h2>
-                <form wire:submit.prevent="add">
+                <form enctype="multipart/form-data" wire:submit.prevent="add">
                     <div class="mb-4">
                         <label for="name" class="block text-sm font-medium text-gray-300 mb-1">Name:</label>
                         <input type="text" wire:model="name" id="name" placeholder="Nom"
@@ -70,7 +70,7 @@
                     </div>
                     <div class="mb-4">
                         <label for="image" class="block text-sm font-medium text-gray-300 mb-1">Image:</label>
-                        <input type="file" wire:model="image" id="image"
+                        <input type="file" multiple wire:model="image" id="image"
                             class="w-full border border-gray-600 rounded-lg p-2 bg-gray-800 text-white focus:ring-2 focus:ring-[#fee814] focus:outline-none" />
                     </div>
                     <div class="mt-6 flex justify-end space-x-4">

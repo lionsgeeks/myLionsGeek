@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Places;
 
+use App\Models\Image;
 use App\Models\Places;
 use Livewire\Component;
 use Livewire\Features\SupportFileUploads\WithFileUploads;
@@ -26,7 +27,7 @@ class PlacesCreate extends Component
             'name' => 'required|string',
             'place_type' => 'required|string',
             'state' => 'required|boolean',
-            'image' => 'nullable|image'
+            'image.*' => 'nullable|image'
         ]);
     
         if ($this->selectedPlaceId) {
@@ -34,12 +35,13 @@ class PlacesCreate extends Component
             $place->update($validated);
         } else {
             $place = Places::create($validated); 
+            Image::store($place , $this->image, "places");
         }
     
-        if ($this->image) {
-            $imagePath = $this->image->store("places", "public");
-            $place->images()->create(['path' => $imagePath]);
-        }
+        // if ($this->image) {
+        //     $imagePath = $this->image->store("places", "public");
+        //     $place->images()->create(['path' => $imagePath]);
+        // }
     
         $this->reset(['name', 'place_type', 'state', 'image', 'selectedPlaceId']);
     

@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string("name");
             $table->string("place_type");
-            $table->string('image')->nullable(); 
             $table->boolean('state')->default(1);
             $table->timestamps();
         });
