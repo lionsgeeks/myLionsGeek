@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('formations', function (Blueprint $table) {
-            $table->uuid();
+            $table->uuid('id')->primary();
             $table->string("class_name");
             $table->string("formation_name");
             $table->date("start_time");

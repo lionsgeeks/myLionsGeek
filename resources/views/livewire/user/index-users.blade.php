@@ -97,14 +97,18 @@
 
     <div x-data="" class=" flex flex-col gap-3">
         <div class=" flex justify-end gap-3">
-            <input type="text" wire:model.live='search' placeholder="Search" class="border border-gray-600 p-2 rounded-lg w-full md:w-1/6 bg-[#2E2E2E] text-white focus:ring-2 focus:ring-[#fee814] focus:outline-none placeholder:text-sm">           
-            <select  wire:model.live="roleQuery" class="border border-gray-600 p-2 rounded-lg w-full text-sm md:w-[8.5vw] bg-[#2E2E2E] text-white focus:ring-2 focus:ring-[#fee814] focus:outline-none">               
+            <input type="text" wire:model.live='search' placeholder="Search"
+                class="border border-gray-600 p-2 rounded-lg w-full md:w-1/6 bg-[#2E2E2E] text-white focus:ring-2 focus:ring-[#fee814] focus:outline-none placeholder:text-sm">
+            <select wire:model.live="roleQuery"
+                class="border border-gray-600 p-2 rounded-lg w-full text-sm md:w-[8.5vw] bg-[#2E2E2E] text-white focus:ring-2 focus:ring-[#fee814] focus:outline-none">
                 <option disabled selected>Select Role</option>
                 <option value="Moderator">Moderator</option>
                 <option value="Coworker">Coworker</option>
                 <option value="Student">Student</option>
             </select>
-            <select class="border border-gray-600 p-2 rounded-lg w-full text-sm md:w-[8.5vw] bg-[#2E2E2E] text-white focus:ring-2 focus:ring-[#fee814] focus:outline-none" wire:model.live="statusQuery">
+            <select
+                class="border border-gray-600 p-2 rounded-lg w-full text-sm md:w-[8.5vw] bg-[#2E2E2E] text-white focus:ring-2 focus:ring-[#fee814] focus:outline-none"
+                wire:model.live="statusQuery">
                 <option disabled selected>Select Status</option>
                 <option value="Studying">Studying</option>
                 <option value="Working">Working</option>
@@ -112,7 +116,9 @@
                 <option value="Unemployed">Unemployed</option>
                 <option value="Freelancing">Freelancing</option>
             </select>
-            <button wire:click='resetFilters()' class="bg-[#fee814] text-black px-3 py-2 rounded-lg hover:bg-yellow-400 transition-colors duration-300" >Reset Filters</button>
+            <button wire:click='resetFilters()'
+                class="bg-[#fee814] text-black px-3 py-2 rounded-lg hover:bg-yellow-400 transition-colors duration-300">Reset
+                Filters</button>
         </div>
         <div class="container mx-auto h-full">
             <div class="">
@@ -138,34 +144,44 @@
                                 <td class="px-3">{{ $user->name }}</td>
                                 <td class="px-3">{{ $user->email }}</td>
                                 <td class="px-3">{{ $user->access?->role }}</td>
-                                <td class="px-3 text-sm font-semibold 
-                                {{ $user->status == 'Studying' ? 'text-[#d4f1f4]' : 
-                                   ($user->status == 'Working' ? 'text-[#7ada31]' : 
-                                   ($user->status == 'Internship' ? 'text-[#fee814]' : 
-                                   ($user->status == 'Unemployed' ? 'text-red-500' : 
-                                   ($user->status == 'Freelancing' ? 'text-[#f8946d]' : 'text-gray-700')))) }}">
-                                {{ ucfirst($user->status) }}
-                            </td>
-                            
+                                <td
+                                    class="px-3 text-sm font-semibold 
+                                {{ $user->status == 'Studying'
+                                    ? 'text-[#d4f1f4]'
+                                    : ($user->status == 'Working'
+                                        ? 'text-[#7ada31]'
+                                        : ($user->status == 'Internship'
+                                            ? 'text-[#fee814]'
+                                            : ($user->status == 'Unemployed'
+                                                ? 'text-red-500'
+                                                : ($user->status == 'Freelancing'
+                                                    ? 'text-[#f8946d]'
+                                                    : 'text-gray-700')))) }}">
+                                    {{ ucfirst($user->status) }}
+                                </td>
+
                                 <td class="px-3  space-x-2">
                                     <a wire:navigate href="/user/{{ $user->id }}" class="text-gray-500">
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </a>
-                                    <button type="button" x-on:click.prevent="$dispatch('open-modal', 'confirm-user-delete{{ $user->id }}')">
+                                    <button type="button"
+                                        x-on:click.prevent="$dispatch('open-modal', 'confirm-user-delete{{ $user->id }}')">
                                         🗑
                                     </button>
                                 </td>
                             </tr>
-                
+
                             <div class="flex justify-center">
-                                <x-modal name="confirm-user-delete{{ $user->id }}" :show="$errors->isNotEmpty()">
+                                <x-modal name="confirm-user-delete{{ $user->id }}" :show="$errors->isNotEmpty()"
+                                    x-on:close-modal.window="$dispatch('close')">
                                     <div class="p-5 gap-2 flex flex-col items-center">
                                         <h1>Are you sure about that?</h1>
                                         <div>
                                             <x-secondary-button x-on:click="$dispatch('close')">
                                                 {{ __('Cancel') }}
                                             </x-secondary-button>
-                                            <button class="bg-red-500 inline-flex items-center px-4 py-2 border border-gray-300 rounded-md font-semibold text-xs text-white uppercase tracking-widest shadow-sm"
+                                            <button
+                                                class="bg-red-500 inline-flex items-center px-4 py-2 border border-gray-300 rounded-md font-semibold text-xs text-white uppercase tracking-widest shadow-sm"
                                                 wire:click='delete("{{ $user->id }}")'>Delete</button>
                                         </div>
                                     </div>
@@ -174,10 +190,12 @@
                         @endforeach
                     </tbody>
                 </table>
-                
+            </div>
+            <div class="py-3">
+                {{ $users->links() }}
             </div>
         </div>
-        
+
         {{-- <button class="text-red-500"
             x-on:click.prevent="$dispatch('open-modal', 'create_user')">{{ __('Create User') }}</button>
         <x-modal name="create_user" :show="$errors->isNotEmpty()">

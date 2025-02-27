@@ -28,7 +28,7 @@ new class extends Component {
                     </a>
 
                 <div class="flex pl-10 items-center space-x-8">
-                    <a href="#"
+                    <a href="/users"
                         class="flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium text-gray-400 hover:text-white">
                         <i class="fas fa-users w-[18px] h-[13px]"></i>
                         <span>Members</span>

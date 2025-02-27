@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('phone');
             $table->string('cin');
             $table->enum('status', ['Working', 'Studying', 'Internship', 'Unemployed','Freelancing']);
-            // $table->foreignId('formation_id')->nullable()->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('formation_id')->nullable()->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->rememberToken();
             $table->timestamps();
         });
