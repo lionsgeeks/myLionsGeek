@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Access;
+use App\Models\Formation;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -15,7 +16,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        $formation = Formation::create([
+            'id' => Str::uuid()->toString(),
+            'class_name' => 'coding_1',
+            'formation_name' => 'okokkok',
+            'start_time' => '12/20/2000',
+            'end_time' => '12/20/2005'
+        ]);
 
         User::create([
             'id' => Str::uuid()->toString(),
@@ -25,8 +32,7 @@ class DatabaseSeeder extends Seeder
             'cin' => 'BB000000',
             'phone' => '000000000',
             'status' => 'Working',
-            // 'formation_id' => 1
+            'formation_id' => $formation->id
         ]);
-        
     }
 }

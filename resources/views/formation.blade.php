@@ -1,3 +1,3 @@
 <x-app-layout>
-    <livewire:Formation.formations />
+    <livewire:Formation.Formations />
 </x-app-layout>

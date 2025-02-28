@@ -19,14 +19,16 @@ new class extends Component {
     <nav class="bg-[#101010] border-b px-9 border-gray-800">
         <div class="max-w-[1600px] mx-auto px-4">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center pl-5 ">
-                    <a href="#" class="flex-shrink-0 hover:opacity-90 transition-opacity">
+                    <a href="#" class="flex items-center pl-5 hover:opacity-90 transition-opacity">
+                        <div class="mr-2">
+                            <img src="https://mylionsgeek.ma/logo1.png" alt="logo" class="w-[22px] h-[22px] invert "
+                                loading="lazy">
+                        </div>
                         <span class="text-white text-xl font-bold">Lions<span class="text-[#fee814]">Geek</span></span>
                     </a>
-                </div>
 
                 <div class="flex pl-10 items-center space-x-8">
-                    <a href="#"
+                    <a href="/users"
                         class="flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium text-gray-400 hover:text-white">
                         <i class="fas fa-users w-[18px] h-[13px]"></i>
                         <span>Members</span>
@@ -94,7 +96,7 @@ new class extends Component {
                     <div id="learningDropdown"
                         class="hidden absolute z-10 mt-36 ml-10 w-48 rounded-md shadow-lg bg-gray-900 ring-1 ring-black ring-opacity-5">
                         <div class="py-1" role="menu">
-                            <a href="#"
+                            <a href="formation"
                                 class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700">Training</a>
                             <a href="#"
                                 class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700">Attendance</a>

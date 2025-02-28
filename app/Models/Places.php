@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Places extends Model
 {
-    protected $fillable =["name" , "place_type" , "state" , "image" ];
+    protected $fillable =["name" , "place_type" , "state" ];
 
     public function images(): MorphMany
     {

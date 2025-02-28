@@ -9,6 +9,7 @@ use Livewire\WithPagination;
 class Formations extends Component
 {
     use WithPagination;
+    
     public $class_name;
     public $formation_name;
     public $start_time;
@@ -51,17 +52,13 @@ class Formations extends Component
             session()->flash('message', 'Success');
 
         }
-
         $this->resetFormFields();
     }
 
-    public function delete(formation $formation)
-    {
-        $formation->delete();
-        session()->flash('message', 'Formation deleted successfully!');
-    }
+  
     public function edit(formation $formation)
     {
+        // dd("ssss");
         $this->selectedFormationId = $formation->id;
         $this->class_name = $formation->class_name;
         $this->formation_name = $formation->formation_name;
@@ -76,6 +73,12 @@ class Formations extends Component
     public function cancel()
     {
         $this->resetFormFields();
+    }
+    
+    public function delete(formation $formation)
+    {
+        $formation->delete();
+        session()->flash('message', 'Formation deleted successfully!');
     }
     public function render()
     {
