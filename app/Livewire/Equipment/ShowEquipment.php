@@ -16,16 +16,16 @@ class ShowEquipment extends Component
 
     public $search = '' , $equipmentType ;
 
-    #[Rule('required', message: 'please enter reference')]
+    // #[Rule('required', message: 'please enter reference')]
     public $reference = '';
 
-    #[Rule('required', message: 'please enter mark')]
+    // #[Rule('required', message: 'please enter mark')]
     public $mark = '';
 
-    #[Rule('required', message: 'please choose equipment type')]
+    // #[Rule('required', message: 'please choose equipment type')]
     public $equipment_type = '';
 
-    #[Rule('required', message: 'please choose image')]
+    // #[Rule('required', message: 'please choose image')]
     public $images;
 
     public $selectedEquipmentId;

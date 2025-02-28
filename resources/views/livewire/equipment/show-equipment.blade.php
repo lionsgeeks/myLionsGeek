@@ -44,11 +44,6 @@
                             @error('images')
                                 <em class="text-red-500">{{ $message }}</em>
                             @enderror
-                            {{-- @if (!$updateData)
-                                @if ($image)
-                                    <img width="250" src="{{ $image->temporaryUrl() }}">
-                                @endif
-                            @endif --}}
 
                         </label>
                         <div class="flex items-center justify-end gap-x-3 ">
@@ -93,13 +88,27 @@
 
     <div class="grid grid-cols-4 items-center justify-start gap-5 mt-8">
         @foreach ($equipments as $equipment)
-            <div class="flex flex-col min-h-[40vh] bg-[#2E2E2E] rounded-md relative ">
+            <div class="flex flex-col h-[40vh] bg-[#2E2E2E] rounded-md relative ">
 
-                    <div class="">
-                        @foreach ($equipment->images as $image)
-                            <img class="rounded-t-md object-cover w-full h-[25vh] " src="{{ asset('storage/images/equipment/' . $image->path ) }}" alt="" >
-                        @endforeach
-                        {{-- <img class="rounded-t-md" src="{{ asset('storage/images/equipment/' . $equipment->images->first()->path ) }}" alt="" > --}}
+                    <div class="overflow-hidden">
+                        @if ($equipment->images->count() > 1)
+                        <div class="swiper-container relative">
+                            <div class="swiper-wrapper">
+                                @foreach ($equipment->images as $image)
+                                    <div class="swiper-slide">
+                                        <img class="rounded-t-md object-cover w-full h-[25vh]" src="{{ asset('storage/images/equipment/' . $image->path ) }}" alt="">
+                                    </div>
+                                @endforeach
+                            </div>
+                            <!-- Add Pagination -->
+                            {{-- <div class="swiper-pagination"></div> --}}
+                            <!-- Add Navigation -->
+                            <button class="button-next z-20 text-5xl  flex items-center justify-center w-[3vw] h-[6vh] rounded-full absolute top-[50%]  right-3 transform -translate-y-1/2 ">></button>
+                            <button class="button-prev z-20 text-5xl  flex items-center justify-center w-[3vw] h-[6vh] rounded-full absolute top-[50%]  left-3 transform -translate-y-1/2 "><</button>
+                        </div>
+                        @else
+                            <img class="rounded-t-md" src="{{ asset('storage/images/equipment/' . $equipment->images->first()->path ) }}" alt="" >
+                        @endif
                     </div>
                 <div class="flex items-center justify-between p-4">
                     <div class="flex flex-col">
@@ -108,9 +117,9 @@
                         <h1 class="">Mark : <span class="text-yellow-500">{{ $equipment->mark }}</span></h1>
                         <h1 class="">Equipment Type : <span
                                 class="text-yellow-500">{{ $equipment->equipment_type }}</span></h1>
-                        <h1 class="">State : <span class="text-yellow-500">{{ $equipment->state }}</span></h1>
+                        <h1 class="">State : <span class="text-yellow-500">{{ $equipment->state === 1 ? "khdam" : "khasar" }}</span></h1>
                     </div>
-                    <div class="flex flex-col items-center absolute right-0 top-1">
+                    <div class="flex flex-col items-center absolute right-0 top-1 z-20">
                         <button class=""
                             wire:click="confirmDelete({{ $equipment->id }})">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#ef4444" d="M19 4h-3.5l-1-1h-5l-1 1H5v2h14M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6z"/></svg>
@@ -143,6 +152,21 @@
 
     {{ $equipments->links() }}
 
+    <!-- Swiper JS -->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+        var swiper = new Swiper('.swiper-container', {
+            loop: true,
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.button-next',
+                prevEl: '.button-prev',
+            },
+        });
+    </script>
 
 </div>
 
