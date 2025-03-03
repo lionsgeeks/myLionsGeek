@@ -18,10 +18,7 @@ class ComputerForm extends Form
    
 
     #[Rule('required')]
-    public $cpu = '';
-
-    #[Rule('required')]
-    public $gpu = '';
+    public $CpuGpu = '';
 
     #[Rule('required')]
     public $computer_state = '';
@@ -29,26 +26,21 @@ class ComputerForm extends Form
     #[Rule('required')]
     public $is_available = '';
 
-    #[Rule('required')]
+    #[Rule('nullable')]
     public $user_id = '';
 
 
     #[Rule('required')]
     public $start_date = '';
 
-    #[Rule('required')]
-    public $device_name = '';
-
     public function setComputer(Computer $computer){
         $this->computer = $computer;
         $this->reference = $computer->reference;
-        $this->cpu = $computer->cpu;
-        $this->gpu = $computer->gpu;
+        $this->CpuGpu = $computer->CpuGpu;
         $this->computer_state = $computer->computer_state;
         $this->is_available = $computer->is_available;
         $this->user_id = $computer->user_id;
         $this->start_date = $computer->start_date;
-        $this->device_name = $computer->device_name;
     }
 
     public function update() {

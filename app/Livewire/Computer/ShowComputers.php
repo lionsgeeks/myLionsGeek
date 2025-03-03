@@ -11,7 +11,7 @@ use Livewire\Component;
 
 class ShowComputers extends Component
 {
-    #[Url(as: 'q', keep: true, history: true)]
+    #[Url(as: 'q')]
     public $search = '';
     public $computerState = '';
     public $is_available = '';
@@ -28,8 +28,9 @@ class ShowComputers extends Component
      */
     public function resetFilter()
     {
-        $this->computerState = '';
-        $this->is_available = '';
+        // $this->computerState = '';
+        // $this->is_available = '';
+        $this->reset();
         $this->computers = Computer::all();
     }
 
@@ -39,15 +40,13 @@ class ShowComputers extends Component
     {
         $query = Computer::query();
 
-        
+
         if (!empty($this->search)) {
             $query->whereHas('user', function ($q) {
                 $q->where('name', 'like', '%' . $this->search . '%');
             })
                 ->orWhere('reference', 'like', '%' . $this->search . '%')
-                ->orWhere('cpu', 'like', '%' . $this->search . '%')
-                ->orWhere('gpu', 'like', '%' . $this->search . '%')
-                ->orWhere('device_name', 'like', '%' . $this->search . '%');
+                ->orWhere('CpuGpu', 'like', '%' . $this->search . '%');
         }
         if (!empty($this->computerState)) {
             $query->where('computer_state', $this->computerState);

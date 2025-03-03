@@ -8,13 +8,11 @@ class Computer extends Model
 {
     protected $fillable = [
         "reference",
-        "cpu",
-        "gpu",
+        "CpuGpu",
         "computer_state",
         "is_available",
         "user_id",
         "start_date",
-        "device_name",
     ];
 
     public function user() {

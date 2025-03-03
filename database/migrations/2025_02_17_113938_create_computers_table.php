@@ -14,13 +14,11 @@ return new class extends Migration
         Schema::create('computers', function (Blueprint $table) {
             $table->id();
             $table->string("reference");
-            $table->string("cpu");
-            $table->string("gpu");
+            $table->string("CpuGpu");
             $table->enum('computer_state', ['working', 'not_working', 'damaged']);
             $table->boolean('is_available')->default(true);
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('user_id')->nullable();
             $table->date('start_date');
-            $table->string("device_name");
             $table->timestamps();
         });
     }

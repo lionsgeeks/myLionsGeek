@@ -31,21 +31,16 @@
 
     <div class="container mx-auto h-full">
         <div class="">
-
             <table class="w-full text-left border-collapse">
                 <thead>
-                    <tr class="bg-[#2E2E2E] text-white text-sm ">
-                        <th></th>
-                        <th class="py-2 px-4">ID</th>
-                        <th class="py-2 px-4">Reference</th>
-                        <th class="py-2 px-4">CPU</th>
-                        <th class="py-2 px-4">GPU</th>
-                        <th class="py-2 px-4">State</th>
-                        <th class="py-2 px-4">Available</th>
-                        <th class="py-2 px-4">User ID</th>
-                        <th class="py-2 px-4">Start Date</th>
-                        <th class="py-2 px-4">Device Name</th>
-                        <th class="py-2 px-4">Action</th>
+                    <tr class="bg-[#2E2E2E] text-white text-sm">
+                        <th class="py-2 px-4"></th>
+                        <th class="py-2 px-4 text-center">ID</th>
+                        <th class="py-2 px-10">Reference</th>
+                        <th class="py-2 px-4">CPU/GPU</th>
+                        <th class="py-2 px-4 text-center">State</th>
+                        <th class="py-2 px-4 text-center">Available</th>
+                        <th class="py-2 px-4 text-center">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -53,20 +48,23 @@
                         <tr class="border-b border-gray-700 text-white">
                             <td class="py-2 px-3"><i class="fa-solid fa-grip text-gray-500"></i></td>
                             <td class="py-2 px-3 text-center">{{ $computer->id }}</td>
-                            <td class="py-2 px-3">{{ $computer->reference }}</td>
-                            <td class="py-2 px-3">{{ $computer->cpu }}</td>
-                            <td class="py-2 px-3 ">{{ $computer->gpu }}</td>
+                            <td class="py-2 px-10">{{ $computer->reference }}</td>
+                            <td class="py-2 px-3">{{ $computer->CpuGpu }}</td>
                             <td
-                                class="py-2 px-3 text-sm font-semibold {{ $computer->computer_state == 'working' ? 'text-green-400' : ($computer->computer_state == 'not_working' ? 'text-yellow-400' : 'text-red-400') }}">
+                                class="py-2 px-3 text-sm font-semibold text-center 
+                                {{ $computer->computer_state == 'working' ? 'text-green-400' : ($computer->computer_state == 'not_working' ? 'text-yellow-400' : 'text-red-400') }}">
                                 {{ ucfirst($computer->computer_state) }}
                             </td>
-                            <td class="py-2 px-3 text-center">{{ $computer->is_available ? '✅' : '❌' }}</td>
-                            <td class="py-2 px-3 ">{{ $computer->user->name }}</td>
-                            <td class="py-2 px-3 text-sm ">{{ $computer->start_date }}</td>
-                            <td class="py-2 px-3 ">{{ $computer->device_name }}</td>
+                            <td class="py-2 px-3 text-center">
+                                {{ $computer->is_available ? '✅' : '' }}
+                                @if (!$computer->is_available && $computer->user)
+                                    <a href="#">
+                                        {{ $computer->user->name }}
+                                    </a>
+                                @endif
+                            </td>
                             <td class="py-2 px-3 text-center space-x-2">
-                                <button wire:navigate href="/computer/update/{{ $computer->id }}"
-                                    class="text-gray-500">
+                                <button wire:navigate href="/computer/update/{{ $computer->id }}" class="text-gray-500">
                                     <i class="fa-solid fa-pen-to-square"></i>
                                 </button>
                                 <button type="button" wire:click="delete({{ $computer->id }})">
