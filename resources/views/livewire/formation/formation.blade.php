@@ -1,12 +1,12 @@
 <div class="p-10  bg-[#171717] min-h-screen">
-    
+
     <!-- Search  -->
     <div id="search" class="relative pb-8 w-full max-w-md ml-12 ">
         <input
             wire:model.live.debounce.500ms="search"
             type="text"
             placeholder="Search by formations..."
-            class="border border-gray-600 p-2 rounded-lg w-full pl-12 bg-[#2E2E2E] text-white focus:ring-2 focus:ring-[#fee814] focus:outline-none placeholder:text-sm">
+            class="border border-gray-600 p-2 rounded-lg w-full pl-12 bg-[#2E2E2E] text-white focus:ring-2 focus:ring-alpha focus:outline-none placeholder:text-sm">
 
             <svg class="absolute left-4 top-3 w-6 h-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M17 10A7 7 0 1110 3a7 7 0 017 7z" />
@@ -21,14 +21,14 @@
             <span class="text-white font-medium mt-2">
                 {{ $updateData ? 'Edit Formation' : 'Add Formation' }}
             </span>
-        </div>  
+        </div>
 
         <!-- Formation Cards -->
         @foreach ($formations as $formation)
         <div wire:key="{{ $formation->id }}" class="relative rounded-lg h-72 overflow-hidden shadow-md  hover:shadow-xl transition-all transform hover:scale-105">
             <img src="https://via.placeholder.com/300" alt="Formation Image" class="h-full w-full object-cover">
             <div class="absolute bottom-0 left-0 right-0 bg-[#2E2E2E]  p-5 rounded-b-lg">
-                <h3 class="text-[#fee814] font-semibold text-lg">{{ $formation->class_name }}</h3>
+                <h3 class="text-alpha font-semibold text-lg">{{ $formation->class_name }}</h3>
                 <p class="text-gray-300 text-sm">{{ $formation->formation_name }}</p>
                 <div class="text-gray-400 text-xs space-y-1 mt-2">
                     <p>📅 Start: <span class="text-gray-200">{{ $formation->start_time }}</span></p>
@@ -63,19 +63,19 @@
     @if ($showModal)
     <div class="fixed inset-0 bg-black/50 flex items-center justify-center">
         <div class="bg-gray-900 rounded-lg shadow-lg p-8 max-w-md w-full">
-            <h2 class="text-xl font-bold mb-4 text-[#fee814] border-b pb-2">
+            <h2 class="text-xl font-bold mb-4 text-alpha border-b pb-2">
                 {{ $updateData ? 'Edit Formation' : 'Add Formation' }}
             </h2>
             <form class="space-y-6" wire:submit="formation">
                 <div>
                     <label class="lock text-sm font-medium text-gray-300 ">Class Name :</label>
                     <input type="text" wire:model="class_name" placeholder="Enter Class Name"
-                        class="w-full mt-1 border border-gray-600 rounded-lg p-2 bg-gray-800 text-white focus:ring-2 focus:ring-[#fee814] focus:outline-none">
+                        class="w-full mt-1 border border-gray-600 rounded-lg p-2 bg-gray-800 text-white focus:ring-2 focus:ring-alpha focus:outline-none">
                 </div>
                 <div>
                     <label class="lock text-sm font-medium text-gray-300 ">Formation Name :</label>
                     <select wire:model="formation_name"
-                        class="w-full mt-1 border border-gray-600 rounded-lg p-2 bg-gray-800 text-white focus:ring-2 focus:ring-[#fee814] focus:outline-none">
+                        class="w-full mt-1 border border-gray-600 rounded-lg p-2 bg-gray-800 text-white focus:ring-2 focus:ring-alpha focus:outline-none">
                         <option selected disabled value="">Select Formation</option>
                         <option value="Coding">Coding</option>
                         <option value="Media">Media</option>
@@ -84,11 +84,11 @@
                 <div class="flex space-x-4">
                     <div>
                         <label class="lock text-sm font-medium text-gray-300 " for="">start :</label>
-                        <input type="date" wire:model="start_time" class="w-full mt-1 border border-gray-600 rounded-lg p-2 bg-gray-800 text-white focus:ring-2 focus:ring-[#fee814] focus:outline-none">
+                        <input type="date" wire:model="start_time" class="w-full mt-1 border border-gray-600 rounded-lg p-2 bg-gray-800 text-white focus:ring-2 focus:ring-alpha focus:outline-none">
                     </div>
                     <div>
                         <label class="lock text-sm font-medium text-gray-300 " for="">End :</label>
-                        <input type="date" wire:model="end_time" class="w-full mt-1 border border-gray-600 rounded-lg p-2 bg-gray-800 text-white focus:ring-2 focus:ring-[#fee814] focus:outline-none">
+                        <input type="date" wire:model="end_time" class="w-full mt-1 border border-gray-600 rounded-lg p-2 bg-gray-800 text-white focus:ring-2 focus:ring-alpha focus:outline-none">
                     </div>
                 </div>
                 <div class="flex justify-end gap-3 mt-6">

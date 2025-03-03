@@ -13,6 +13,7 @@ use App\Http\Controllers\EquipmentController;
 // use App\Http\Controllers\UserController;
 // use App\Models\User;
 // use App\Http\Controllers\FormationContorller;
+use App\Http\Controllers\ReservationController;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');
@@ -43,5 +44,8 @@ Route::view("formation", "formation");
 Route::get('/create-computers', [CreateComputer::class, 'createComputer'])->name('computer.create');
 Route::get('/updateComputer', [EditComputer::class, 'updateView']);
 Route::get('/computer/update/{computer}', [ComputerController::class, 'computerUpdate']);
+
+Route::get('/reservations', [ReservationController::class, 'index'])->name('reservations');
+
 
 require __DIR__.'/auth.php';

@@ -1,0 +1,135 @@
+ .fc-button-active {
+     background-color: #ff0 !important;
+ }
+
+ .fc-prev-button.fc-button.fc-button-primary,
+ .fc-next-button.fc-button.fc-button-primary {
+     background-color: transparent;
+     border: none !important;
+     outline: none !important;
+     text-shadow: none !important;
+     margin: 0;
+ }
+
+ .fc-prev-button.fc-button.fc-button-primary:hover,
+ .fc-next-button.fc-button.fc-button-primary:hover {
+     background-image: none;
+     box-shadow: none;
+     background-color: #ffc800 !important;
+     color: black;
+ }
+
+ .fc-event-main-frame:hover {
+     cursor: pointer;
+ }
+
+ .fc-button.fc-button-primary {
+     background-color: transparent;
+     border: 1px solid #ff0 !important;
+     color: black !important;
+     border-radius: 10px !important;
+     width: 70px;
+     margin-left: 5px !important;
+ }
+
+ .fc-button.fc-button-primary:hover {
+     background-color: #ffac00;
+     color: black !important;
+     border-radius: 10px !important;
+     width: 70px;
+     margin-left: 5px !important;
+ }
+
+ #reservation_studio_calendar {
+     z-index: -10;
+ }
+
+ .fc-today-button.fc-button.fc-button-primary [disabled] {
+     background-color: white !important;
+ }
+
+ .fc-today-button.fc-button.fc-button-primary {
+     background-color: #ff0 !important;
+ }
+
+ .fc-listDay-button,
+ .fc-listWeek-button,
+ .fc-listMonth-button,
+ .fc-myCustomButton-button {
+     border: 1px solid #ff0 !important;
+     background-color: transparent !important;
+     color: black !important;
+     width: fit-content !important;
+ }
+
+ .fc-listDay-button:hover,
+ .fc-listWeek-button:hover,
+ .fc-listMonth-button:hover,
+ .fc-myCustomButton-button:hover {
+     border: 1px solid #ff0 !important;
+     background-color: #ff0 !important;
+     color: black !important;
+ }
+
+ .fc-header-toolbar.fc-toolbar.fc-toolbar-ltr {
+     height: fit-content;
+ }
+
+ .fc-event-container {
+     width: 99% !important;
+ }
+
+ .fc-content {
+     height: 100%;
+     display: flex;
+     flex-direction: row-reverse;
+     align-items: center;
+     justify-content: space-between;
+     font-weight: bold;
+ }
+
+ .fc-timegrid-slot.fc-timegrid-slot-lane {
+     height: 25px;
+     border-bottom: none;
+ }
+
+ .fc-timegrid-slot.fc-timegrid-slot-lane.fc-timegrid-slot-minor {
+     border: none;
+     height: 25px !important;
+ }
+
+ .fc-timegrid-slot.fc-timegrid-slot-label.fc-scrollgrid-shrink {
+     border: none;
+ }
+
+ .fc-timegrid-slot.fc-timegrid-slot-label.fc-timegrid-slot-minor {
+     border-top: none;
+     border-bottom: 1px solid #ddd;
+ }
+
+ .fc-col-header-cell-cushion,
+ .fc-list-day-side-text,
+ .fc-list-day-text,
+ .fc-daygrid-day-number {
+     color: black;
+ }
+
+ @media (min-width: 320px) and (max-width: 769px) {
+
+     .fc-listDay-button,
+     .fc-listWeek-button,
+     .fc-listMonth-button,
+     .fc-myCustomButton-button,
+     .fc-timeGridWeek-button.fc-button.fc-button-primary,
+     .fc-dayGridMonth-button.fc-button.fc-button-primary,
+     .fc-timeGridDay-button.fc-button,
+     .fc-toolbar-title {
+         display: none !important;
+     }
+
+     .fc-toolbar-chunk {
+         display: flex;
+         justify-content: space-between;
+         min-width: 100%;
+     }
+ }

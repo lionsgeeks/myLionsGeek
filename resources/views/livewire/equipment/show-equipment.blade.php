@@ -1,6 +1,6 @@
 <div class="bg-[#171717] min-h-screen text-white flex flex-col p-8 gap-y-5 px-16">
     <div class="flex items-center justify-between ">
-        <h1 class="text-3xl text-[#fee814] font-bold">Equipment</h1>
+        <h1 class="text-3xl text-alpha font-bold">Equipment</h1>
         @if ($modal)
             <div class="w-full h-full flex items-center justify-center fixed left-0 top-0 bg-[#000000b3] z-30">
                 <div class="p-5 gap-2 flex flex-col items-center bg-[#111827] min-w-[40vw] rounded-md ">
@@ -8,7 +8,7 @@
                         <h1 class="text-yellow-500 text-xl font-bold border-b pb-2">{{ $updateData ? "Edit Equipment" : "Create Equipment" }}</h1>
                         <label class="w-full">
                             <span class=" pb-2 ">reference :</span>
-                            <input class="w-full border border-gray-600 rounded-lg p-2 bg-gray-800 text-white focus:ring-2 focus:border-none focus:ring-[#fee814] focus:outline-none" type="text" wire:model="reference">
+                            <input class="w-full border border-gray-600 rounded-lg p-2 bg-gray-800 text-white focus:ring-2 focus:border-none focus:ring-alpha focus:outline-none" type="text" wire:model="reference">
                             @error('reference')
                                 <em class="text-red-500">{{ $message }}</em>
                             @enderror
@@ -16,7 +16,7 @@
 
                         <label class="w-full">
                             <span class=" pb-2 ">mark :</span>
-                            <input class="w-full border border-gray-600 rounded-lg p-2 bg-gray-800 text-white focus:ring-2 focus:border-none focus:ring-[#fee814] focus:outline-none" type="text" wire:model="mark">
+                            <input class="w-full border border-gray-600 rounded-lg p-2 bg-gray-800 text-white focus:ring-2 focus:border-none focus:ring-alpha focus:outline-none" type="text" wire:model="mark">
                             @error('mark')
                                 <em class="text-red-500">{{ $message }}</em>
                             @enderror
@@ -24,7 +24,7 @@
 
                         <label class="w-full">
                             <span class=" pb-2 ">equipment_type :</span>
-                            <select class="w-full border border-gray-600 rounded-lg p-2 bg-gray-800 text-white focus:ring-2 focus:border-none focus:ring-[#fee814] focus:outline-none" wire:model="equipment_type">
+                            <select class="w-full border border-gray-600 rounded-lg p-2 bg-gray-800 text-white focus:ring-2 focus:border-none focus:ring-alpha focus:outline-none" wire:model="equipment_type">
                                 <option selected hidden>choose equipment type</option>
                                 <option value="camera">camera</option>
                                 <option value="son">son</option>
@@ -40,7 +40,7 @@
 
                         <label class="w-full">
                             <span class=" pb-2 ">image :</span>
-                            <input type="file" accept="image/*" multiple wire:model="images"  class="w-full border border-gray-600 rounded-lg p-2 bg-gray-800 text-white focus:ring-2 focus:border-none focus:ring-[#fee814] focus:outline-none" >
+                            <input type="file" accept="image/*" multiple wire:model="images"  class="w-full border border-gray-600 rounded-lg p-2 bg-gray-800 text-white focus:ring-2 focus:border-none focus:ring-alpha focus:outline-none" >
                             @error('images')
                                 <em class="text-red-500">{{ $message }}</em>
                             @enderror
@@ -61,10 +61,10 @@
     <div class="flex justify-between w-full mt-5">
         <div class="flex justify-start items-center gap-x-3">
             <input
-                class="w-[20vw] bg-[#2E2E2E] focus:ring-2 focus:border-none focus:ring-[#fee814] focus:outline-none rounded-md placeholder:text-white"
+                class="w-[20vw] bg-[#2E2E2E] focus:ring-2 focus:border-none focus:ring-alpha focus:outline-none rounded-md placeholder:text-white"
                 type="text" wire:model.live="search" placeholder="search">
             <select
-                class="w-[18vw] bg-[#2E2E2E] focus:ring-2 focus:border-none focus:ring-[#fee814] focus:outline-none rounded-md"
+                class="w-[18vw] bg-[#2E2E2E] focus:ring-2 focus:border-none focus:ring-alpha focus:outline-none rounded-md"
                 wire:model.live="equipmentType">
                 <option disabled>choose equipment type</option>
                 <option value="all">all</option>

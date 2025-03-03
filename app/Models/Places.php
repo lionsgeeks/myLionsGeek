@@ -14,4 +14,8 @@ class Places extends Model
         return $this->morphMany(Image::class, 'imagable');
     }
 
+    public function reservations()
+    {
+        return $this->belongsToMany(Reservation::class, 'reservation_places');
+    }
 }

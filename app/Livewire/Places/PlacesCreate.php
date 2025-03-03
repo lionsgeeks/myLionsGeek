@@ -4,6 +4,9 @@ namespace App\Livewire\Places;
 
 use App\Models\Image;
 use App\Models\Places;
+use Illuminate\Support\Facades\Storage;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\Features\SupportFileUploads\WithFileUploads;
 
@@ -14,12 +17,16 @@ class PlacesCreate extends Component
     public $name = "";
     public $place_type = "";
     public $state;
-    public $places;
     public $image;
     public $selectedPlaceId = null;
     public $showModal = false;
-    public $updateData = false;
 
+    #[Url(as: 'name')]
+    public $searchName;
+    #[Url(as: 'type')]
+    public $searchType;
+    #[Url(as: 'state')]
+    public $searchState;
 
     public function add()
     {
@@ -29,76 +36,62 @@ class PlacesCreate extends Component
             'state' => 'required|boolean',
             'image.*' => 'nullable|image'
         ]);
-    
+
         if ($this->selectedPlaceId) {
             $place = Places::findOrFail($this->selectedPlaceId);
             $place->update($validated);
         } else {
-            $place = Places::create($validated); 
+            $place = Places::create($validated);
             Image::store($place , $this->image, "places");
         }
-    
+
         // if ($this->image) {
         //     $imagePath = $this->image->store("places", "public");
         //     $place->images()->create(['path' => $imagePath]);
         // }
-    
-        $this->reset(['name', 'place_type', 'state', 'image', 'selectedPlaceId']);
-    
-        $this->places = Places::all();
-        $this->showModal = false;
+
+
+        $this->resetting();
     }
-    
+
 
     public function edit($id)
     {
-        $place = Places::find($id);
+        $place = Places::findOrFail($id);
 
         $this->selectedPlaceId = $id;
         $this->name = $place->name;
         $this->place_type = $place->place_type;
         $this->state = $place->state;
         $this->image = null;
-        $this->updateData = true;
         $this->showModal = true;
     }
 
-
-    public function update()
-    {
-        $validated = $this->validate([
-            'name' => 'required|string',
-            'place_type' => 'required|string',
-            'state' => 'required|boolean',
-            'image' => 'nullable|image|max:2048',
-        ]);
-
-        $place = Places::find($this->selectedPlaceId);
-        $place->update($validated);
-
-        $this->reset(['name', 'place_type', 'state', 'image', 'selectedPlaceId', 'updateData']);
-        $this->showModal = false;
-
-        $this->places = Places::all();
-    }
-
-    public function cancel()
-    {
-        $this->reset(['name', 'place_type', 'state', 'image', 'selectedPlaceId', 'updateData']);
-        $this->showModal = false;
-    }
-
-
+    // TODO: add auth later - only admins/mods can delete
     public function delete(Places $place)
     {
+        Storage::disk('public')->delete($place->image);
         $place->delete();
-        $this->places = Places::all();
     }
 
+    #[Computed()]
+    public function places()
+    {
+        return Places::where('name', 'like', "%" . $this->searchName . "%")
+            ->where('place_type', 'like', '%' . $this->searchType . '%')
+            ->where('state', 'like', '%' . $this->searchState . '%')
+            ->get();
+    }
 
+    public function resetting()
+    {
+        $this->reset();
+        $this->showModal = false;
+    }
+
+    // TODO: Can be remove if not used
     public function render()
     {
-        $this->places = Places::all();
         return view('livewire.places.places-create');
     }
 }
