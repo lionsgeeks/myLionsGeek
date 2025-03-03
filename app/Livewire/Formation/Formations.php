@@ -3,17 +3,21 @@
 namespace App\Livewire\Formation;
 
 use App\Models\Formation ;
+use App\Models\Image;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 
 class Formations extends Component
 {
+    use WithFileUploads;
     use WithPagination;
     
     public $class_name;
     public $formation_name;
     public $start_time;
     public $end_time;
+    public $images;
     public $selectedFormationId;
     public $updateData=false;
     public $showModal=false;
@@ -35,6 +39,11 @@ class Formations extends Component
         $this->showModal=false;
     }
 
+    public function resetSearch()
+    {
+        $this->reset();
+    }
+
     public function formation()
     {
         $validated = $this->validate([
@@ -42,13 +51,24 @@ class Formations extends Component
             'formation_name' => 'required',
             'start_time' => 'required',
             'end_time' => 'required',
+            'images.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+
         ]);
 
         if ($this->selectedFormationId) {
             $formation = Formation::findOrFail($this->selectedFormationId);
             $formation->update($validated);
+
+            if ($this->images) {
+                foreach ($formation->images as $image) {
+                    $image->erase("formation");
+                }
+                Image::store($formation, $this->images, 'formation');
+            }
         } else {
-            Formation::create($validated);
+            $formation=Formation::create($validated);
+            Image::store($formation, $this->images, 'formation');
+
             session()->flash('message', 'Success');
 
         }
@@ -58,7 +78,6 @@ class Formations extends Component
   
     public function edit(formation $formation)
     {
-        // dd("ssss");
         $this->selectedFormationId = $formation->id;
         $this->class_name = $formation->class_name;
         $this->formation_name = $formation->formation_name;
