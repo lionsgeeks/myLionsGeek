@@ -92,20 +92,7 @@
 
                     <div class="overflow-hidden">
                         @if ($equipment->images->count() > 1)
-                        <div class="swiper-container relative">
-                            <div class="swiper-wrapper">
-                                @foreach ($equipment->images as $image)
-                                    <div class="swiper-slide">
-                                        <img class="rounded-t-md object-cover w-full h-[25vh]" src="{{ asset('storage/images/equipment/' . $image->path ) }}" alt="">
-                                    </div>
-                                @endforeach
-                            </div>
-                            <!-- Add Pagination -->
-                            {{-- <div class="swiper-pagination"></div> --}}
-                            <!-- Add Navigation -->
-                            <button class="button-next z-20 text-5xl  flex items-center justify-center w-[3vw] h-[6vh] rounded-full absolute top-[50%]  right-3 transform -translate-y-1/2 ">></button>
-                            <button class="button-prev z-20 text-5xl  flex items-center justify-center w-[3vw] h-[6vh] rounded-full absolute top-[50%]  left-3 transform -translate-y-1/2 "><</button>
-                        </div>
+                            <x-carousel :images="$equipment->images" />
                         @else
                             <img class="rounded-t-md" src="{{ asset('storage/images/equipment/' . $equipment->images->first()->path ) }}" alt="" >
                         @endif
@@ -152,21 +139,7 @@
 
     {{ $equipments->links() }}
 
-    <!-- Swiper JS -->
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    <script>
-        var swiper = new Swiper('.swiper-container', {
-            loop: true,
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-            },
-            navigation: {
-                nextEl: '.button-next',
-                prevEl: '.button-prev',
-            },
-        });
-    </script>
+
 
 </div>
 
