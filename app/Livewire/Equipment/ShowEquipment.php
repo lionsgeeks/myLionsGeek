@@ -25,6 +25,8 @@ class ShowEquipment extends Component
     // #[Rule('required', message: 'please choose equipment type')]
     public $equipment_type = '';
 
+    public $state;
+
     // #[Rule('required', message: 'please choose image')]
     public $images;
 
@@ -47,8 +49,8 @@ class ShowEquipment extends Component
         if ($this->updateData) {
             $equipment = Equipment::findOrFail($this->selectedEquipmentId);
             $equipment->update($validate);
-
-
+            $equipment->state = $this->state;
+            $equipment->save();
             if ($this->images) {
                 foreach ($equipment->images as $image) {
                     $image->erase("equipment");
@@ -74,6 +76,7 @@ class ShowEquipment extends Component
         $this->reference = $equipment->reference;
         $this->mark = $equipment->mark;
         $this->equipment_type = $equipment->equipment_type;
+        $this->state = $equipment->state;
         // $this->images = $equipment->images()->first()->path;
     }
 
@@ -158,8 +161,6 @@ class ShowEquipment extends Component
                 $query->where('equipment_type', 'like', '%' . $this->equipmentType . '%');
             });
         }
-        return view('livewire.equipment.show-equipment', [
-            'equipments' => $EquipmentQuery->paginate(8)
-        ]);
+        return view('livewire.equipment.show-equipment', ['equipments' => $EquipmentQuery->paginate(8)]);
     }
 }

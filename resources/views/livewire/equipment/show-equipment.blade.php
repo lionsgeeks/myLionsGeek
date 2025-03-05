@@ -37,6 +37,14 @@
                                 <em class="text-red-500">{{ $message }}</em>
                             @enderror
                         </label>
+                        @if ($updateData)
+                            <div class="flex items-center gap-x-3">
+                                <input id="state" type="radio" @checked($state) wire:model="state" value="1">
+                                <label>khdam</label>
+                                <input id="state" type="radio" @checked(!$state) wire:model="state" value="0">
+                                <label>makhdamch</label>
+                            </div>
+                        @endif
 
                         <label class="w-full">
                             <span class=" pb-2 ">image :</span>
