@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
             'end_time' => '12/20/2005'
         ]);
 
-        User::create([
+        $admin = User::create([
             'id' => Str::uuid()->toString(),
             'name' => 'Admin Admin',
             'email' => 'admin@gmail.com',
@@ -33,6 +33,12 @@ class DatabaseSeeder extends Seeder
             'phone' => '000000000',
             'status' => 'Working',
             'formation_id' => $formation->id
+        ]);
+        Access::create([
+            'user_id' => $admin->id,
+            'role' => 'Moderator',
+            'access_studio' => 1,
+            'access_cowork' => 1,
         ]);
     }
 }

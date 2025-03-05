@@ -11,6 +11,10 @@ use Livewire\Component;
 
 class ReservationCreate extends Component
 {
+    //TODO!!! OPTIMIZE THE CODE
+    //TODO!!! OPTIMIZE THE CODE
+    //TODO!!! OPTIMIZE THE CODE
+
     #[Validate('required')]
     public $start;
     #[Validate('required')]
@@ -18,19 +22,50 @@ class ReservationCreate extends Component
 
     public $showModal = false;
 
-    public function save($info)
-    {
+    public $date = '';
+    public $placeID = '';
+    public $events = [];
 
+    public function mount()
+    {
+        $this->events = $this->reservations();
+    }
+
+    public function updatedDate()
+    {
+        $reservations = Reservation::where('date', $this->date)->get();
+        $tempEv = $this->getEvents($reservations);
+
+        $this->dispatch('listen', events: $tempEv);
+    }
+
+    public function updatedPlaceID()
+    {
+        if ($this->placeID) {
+            $reservations = Reservation::whereHas('places', function ($query) {
+                $query->where('places.id', $this->placeID);
+            })->get();
+        } else {
+            $reservations = Reservation::getViewableReservations(1);
+        }
+
+        $tempEv = $this->getEvents($reservations);
+
+        $this->dispatch('listen', events: $tempEv);
+    }
+
+    public function save($info, $placeID)
+    {
+        $place = Places::findOrFail($placeID);
         $user = Auth::user();
         $res = Reservation::create([
             'date' => substr($info['startStr'], 0, 10),
-            'start' =>$info['startStr'],
+            'start' => $info['startStr'],
             'end' => $info['endStr'],
             'user_id' => $user->id,
         ]);
 
-        $place = Places::find(1);
-        $res->places()->attach(1);
+        $res->places()->attach($place->id);
 
         // to force reload the page
         return redirect(request()->header('Referer'));
@@ -67,7 +102,7 @@ class ReservationCreate extends Component
     public function reservations()
     {
         // 1 for the user's reservations. 0 for all the reservations
-        $reservations = Reservation::getViewableReservations(1);
+        $reservations = Reservation::getViewableReservations(0);
         $events = [];
 
         foreach ($reservations as $res) {
@@ -82,6 +117,30 @@ class ReservationCreate extends Component
             ];
         }
 
+        return $events;
+    }
+
+    #[Computed()]
+    public function coworks()
+    {
+        return Places::where('place_type', 'co_work')->where('state', 1)->get();
+    }
+
+
+    protected function getEvents($reservations)
+    {
+        $events = [];
+        foreach ($reservations as $res) {
+            $randomColor = sprintf('#%06X', mt_rand(0, 0xFFFFFF));
+            $events[] = [
+                'id' => $res->id,
+                'start' => $res->start,
+                'end' => $res->end,
+                'title' => $res->user->name,
+                'backgroundColor' => $randomColor,
+                'display' => $res->hasPassed() || $res->approvedOrCanceled() ? 'background' : 'block',
+            ];
+        }
         return $events;
     }
 }
