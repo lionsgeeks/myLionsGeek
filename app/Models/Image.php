@@ -16,22 +16,30 @@ class Image extends Model
         return $this->morphTo();
     }
 
-    static function store($ressource, $images,$name)
+    static function store($ressource, $images, $name)
     {
         if ($images) {
-            foreach ($images as $image) {
-                $imageName = time() . '_' . $image->getClientOriginalName();
+            if (is_array($images)) {
+                foreach ($images as $image) {
+                    $imageName = time() . '_' . $image->getClientOriginalName();
+                    $ressource->images()->create([
+                        'path' => $imageName
+                    ]);
+                    $image->storeAs('images/' . $name, $imageName, 'public');
+                }
+            } else {
+                $imageName = time() . '_' . $images->getClientOriginalName();
                 $ressource->images()->create([
                     'path' => $imageName
                 ]);
-                $image->storeAs('images/'. $name, $imageName, 'public');
+                $images->storeAs('images/' . $name, $imageName, 'public');
             }
         }
     }
 
     public function erase($name)
     {
-        Storage::disk('public')->delete('images/'. $name . '/' . $this->path);
+        Storage::disk('public')->delete('images/' . $name . '/' . $this->path);
         $this->delete();
     }
 }

@@ -3,14 +3,14 @@
 namespace App\Livewire\Forms;
 
 use App\Models\Access;
+use App\Models\Image;
 use App\Models\User;
-use Livewire\Attributes\Validate;
 use Livewire\Form;
 
 class UserForm extends Form
 {
     public ?User $user;
-    public $name, $email, $phone, $cin, $role = "Select Role", $status = "Select Status";
+    public $name, $email, $phone, $cin, $role = "Select Role", $status = "Select Status", $formation_id = 'Select Formation', $image;
     public function store()
     {
         $this->validate([
@@ -19,8 +19,10 @@ class UserForm extends Form
             'phone' => 'required',
             'cin' => 'required',
             'role' => 'required',
-            'status' => 'required'
+            'status' => 'required',
+            'image' => 'nullable|mimes:jpeg,png,jpg,svg|max:2048'
         ]);
+        // dd('inside the store');
         // dd($this->status);
         $user = User::create([
             'name' => $this->name,
@@ -30,6 +32,10 @@ class UserForm extends Form
             'status' => $this->status,
         ]);
         // dd($user->id);
+        if ($this->image) {
+            // dd($this->image);
+            Image::store($user, $this->image, 'users');
+        }
         Access::create([
             'user_id' => $user->id,
             'role' => $this->role
@@ -43,8 +49,8 @@ class UserForm extends Form
         $this->email = $user->email;
         $this->cin = $user->cin;
         $this->phone = $user->phone;
-        $this->status = $user->status;  
-        $this->role = $user->access?->role;  
+        $this->status = $user->status;
+        $this->role = $user->access?->role;
     }
     public function update()
     {

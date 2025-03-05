@@ -58,4 +58,8 @@ class User extends Authenticatable
     public function computers() {
         return $this->hasMany(Computer::class);
     }
+    public function images()
+    {
+        return $this->morphMany(Image::class , 'imagable');
+    }
 }

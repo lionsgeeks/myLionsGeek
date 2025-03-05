@@ -20,4 +20,11 @@ class UserController extends Controller
     {
         return view('users.show', compact('user'));
     }
+    public function addPasswordView(User $user)
+    {
+        return view('users.add_password', compact('user'));
+    }
+    public function setPassword(Request $request, User $user) {
+        dd($request);
+    }
 }
