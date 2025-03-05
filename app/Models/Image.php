@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\ImageManager;
 
 class Image extends Model
 {
@@ -18,21 +20,45 @@ class Image extends Model
 
     static function store($ressource, $images, $name)
     {
+        $manager = new ImageManager(new Driver());
         if ($images) {
             if (is_array($images)) {
                 foreach ($images as $image) {
-                    $imageName = time() . '_' . $image->getClientOriginalName();
+                    $fileSize = $image->getSize();
+                    if ($fileSize >= 1024) {
+                        $imageName = time() . '_' . $image->getClientOriginalName();
+                        $img = $manager->read($image);
+                        $img->toJpeg(80);
+                        $ressource->images()->create([
+                            'path' => $imageName
+                        ]);
+                        $image->storeAs('images/' . $name, $imageName, 'public');
+                    } else {
+                        $imageName = time() . '_' . $image->getClientOriginalName();
+                        $ressource->images()->create([
+                            'path' => $imageName
+                        ]);
+                        $image->storeAs('images/' . $name, $imageName, 'public');
+                    }
+                }
+            } else {
+
+                $fileSize = $images->getSize();
+                if ($fileSize >= 1024) {
+                    $imageName = time() . '_' . $images->getClientOriginalName();
+                    $img = $manager->read($images);
+                    $img->toJpeg(80);
                     $ressource->images()->create([
                         'path' => $imageName
                     ]);
-                    $image->storeAs('images/' . $name, $imageName, 'public');
+                    $images->storeAs('images/' . $name, $imageName, 'public');
+                } else {
+                    $imageName = time() . '_' . $images->getClientOriginalName();
+                    $ressource->images()->create([
+                        'path' => $imageName
+                    ]);
+                    $images->storeAs('images/' . $name, $imageName, 'public');
                 }
-            } else {
-                $imageName = time() . '_' . $images->getClientOriginalName();
-                $ressource->images()->create([
-                    'path' => $imageName
-                ]);
-                $images->storeAs('images/' . $name, $imageName, 'public');
             }
         }
     }

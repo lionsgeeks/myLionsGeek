@@ -43,7 +43,7 @@ class ShowEquipment extends Component
             'reference' => 'required',
             'mark' => 'required',
             'equipment_type' => 'required',
-            'images.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'images.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
         ]);
 
         if ($this->updateData) {

@@ -145,7 +145,7 @@
         @endforeach
     </div>
 
-    {{ $equipments->links() }}
+    {{-- {{ $equipments->links() }} --}}
 
 
 
