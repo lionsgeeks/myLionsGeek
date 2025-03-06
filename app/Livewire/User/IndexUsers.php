@@ -26,7 +26,6 @@ class IndexUsers extends Component
     {
         $this->reset();
     }
-
     public function delete(User $user)
     {
         $user->delete();

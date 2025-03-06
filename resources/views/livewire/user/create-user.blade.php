@@ -97,7 +97,7 @@
             class="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors duration-300">
             Cancel
         </button>
-        <button type="submit"y
+        <button type="submit"
             class="px-4 py-2 bg-[#fee814] text-black rounded-lg hover:bg-yellow-400 transition-colors duration-300">
             Create
         </button>

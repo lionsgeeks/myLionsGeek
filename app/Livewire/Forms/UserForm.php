@@ -2,9 +2,11 @@
 
 namespace App\Livewire\Forms;
 
+use App\Mail\UserPassword;
 use App\Models\Access;
 use App\Models\Image;
 use App\Models\User;
+use Illuminate\Support\Facades\Mail;
 use Livewire\Form;
 
 class UserForm extends Form
@@ -15,7 +17,7 @@ class UserForm extends Form
     {
         $this->validate([
             'name' => 'required',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users,email',
             'phone' => 'required',
             'cin' => 'required',
             'role' => 'required',
@@ -31,7 +33,9 @@ class UserForm extends Form
             'phone' => $this->phone,
             'status' => $this->status,
         ]);
-        // dd($user->id);
+        $baseUrl = url()->to('/');
+        $link = $baseUrl . '/add_password/' . $user->id;
+        Mail::to($user->email)->send(new UserPassword($link, $user->name));        // dd($user->id);
         if ($this->image) {
             // dd($this->image);
             Image::store($user, $this->image, 'users');

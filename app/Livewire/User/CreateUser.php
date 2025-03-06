@@ -16,6 +16,7 @@ class CreateUser extends Component
         $this->userForm->store();
         // $this->redirect('/users');
         $this->dispatch('close');
+        return redirect(request()->header('Referer'));
     }
     public function render()
     {
