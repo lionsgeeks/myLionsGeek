@@ -19,4 +19,7 @@ class Formation extends Model
     {
         return $this->morphMany(Image::class , 'imagable');
     }
+    public function attendances(){
+        return $this->hasMany(attendances::class);
+    }
 }

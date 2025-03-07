@@ -16,13 +16,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $formation = Formation::create([
-            'id' => Str::uuid()->toString(),
-            'class_name' => 'coding_1',
-            'formation_name' => 'okokkok',
-            'start_time' => '12/20/2000',
-            'end_time' => '12/20/2005'
-        ]);
+        // $formation = Formation::create([
+        //     'id' => Str::uuid()->toString(),
+        //     'class_name' => 'coding_1',
+        //     'formation_name' => 'okokkok',
+        //     'start_time' => '12/20/2000',
+        //     'end_time' => '12/20/2005'
+        // ]);
 
         $admin = User::create([
             'id' => Str::uuid()->toString(),
@@ -32,7 +32,7 @@ class DatabaseSeeder extends Seeder
             'cin' => 'BB000000',
             'phone' => '000000000',
             'status' => 'Working',
-            'formation_id' => $formation->id
+            // 'formation_id' => $formation->id
         ]);
         Access::create([
             'user_id' => $admin->id,

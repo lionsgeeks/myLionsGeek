@@ -35,51 +35,63 @@
 
         <!-- Formation Cards -->
         @foreach ($formations as $formation)
-        <div wire:key="{{ $formation->id }}" class="relative rounded-lg h-72 overflow-hidden shadow-md  hover:shadow-xl transition-all transform hover:scale-105">
-            <div class="overflow-hidden">
+        <div wire:key="{{ $formation->id }}" class="relative rounded-lg h-72 overflow-hidden shadow-md hover:shadow-xl transition-all transform hover:scale-105 flex flex-col justify-between">
+            <!-- Image ou Carrousel -->
+            <div class="relative overflow-hidden">
                 @if ($formation->images->count() > 1)
-                <div class="swiper-container relative">
-                    <div class="swiper-wrapper">
-                        @foreach ($formation->images as $image)
-                            <div class="swiper-slide">
-                                <img class="rounded-t-md object-cover w-full h-[25vh]" src="{{ asset('storage/images/formation/' . $image->path ) }}" alt="">
-                            </div>
-                        @endforeach
+                    <div class="swiper-container relative z-10">
+                        <div class="swiper-wrapper">
+                            @foreach ($formation->images as $image)
+                                <div class="swiper-slide">
+                                    <img class="rounded-t-md object-cover w-full h-[25vh]" src="{{ asset('storage/images/formation/' . $image->path ) }}" alt="">
+                                </div>
+                            @endforeach
+                        </div>
+                        <button class="button-next z-50 text-5xl flex items-center justify-center w-[3vw] h-[6vh] rounded-full absolute top-[50%] right-3 transform -translate-y-1/2">></button>
+                        <button class="button-prev z-50 text-5xl flex items-center justify-center w-[3vw] h-[6vh] rounded-full absolute top-[50%] left-3 transform -translate-y-1/2"><</button>
                     </div>
-                  
-                    <button class="button-next z-20 text-5xl  flex items-center justify-center w-[3vw] h-[6vh] rounded-full absolute top-[50%]  right-3 transform -translate-y-1/2 ">></button>
-                    <button class="button-prev z-20 text-5xl  flex items-center justify-center w-[3vw] h-[6vh] rounded-full absolute top-[50%]  left-3 transform -translate-y-1/2 "><</button>
-                </div>
                 @else
-                    <img class="rounded-t-md" src="{{ asset('storage/images/formation/' .$formation->images->first()?->path ) }}" alt="" >
+                    <img class="rounded-t-md object-cover w-full h-[25vh]" src="{{ asset('storage/images/formation/' .$formation->images->first()?->path ) }}" alt="">
                 @endif
             </div>
-            <div class="absolute bottom-0 left-0 right-0 bg-[#2E2E2E]  p-5 rounded-b-lg">
-                <h3 class="text-alpha font-semibold text-lg">{{ $formation->class_name }}</h3>
+
+            <!-- Contenu principal -->
+            <div class="bg-[#2E2E2E] p-5 rounded-b-lg flex flex-col flex-grow">
+                <h3 class="text-white font-semibold text-lg">{{ $formation->class_name }}</h3>
                 <p class="text-gray-300 text-sm">{{ $formation->formation_name }}</p>
                 <div class="text-gray-400 text-xs space-y-1 mt-2">
                     <p>📅 Start: <span class="text-gray-200">{{ $formation->start_time }}</span></p>
                     <p>⏰ End: <span class="text-gray-200">{{ $formation->end_time }}</span></p>
                 </div>
+                <!-- Boutons Participant et Attendances en bas -->
+                <div class=" flex ml-16 gap-3">
+                    <button wire:key="participant-{{ $formation->id }}" class="px-4 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition">
+                        Participant
+                    </button>
+                    <a href="{{ route('attendances', $formation->id) }}">
+                        <button class="px-4 py-2 bg-green-600 text-white rounded-lg shadow-md hover:bg-green-700 transition">
+                            Attendances
+                        </button>
+                    </a>
+                    
+                    
+                </div>
             </div>
 
-            <div class="absolute flex top-4 right-4 space-x-3 cursor-pointer">
-                <svg wire:click="delete('{{ $formation->id }}')"xmlns="http://www.w3.org/2000/svg" fill="none"
-                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                    class="h-6 w-6 text-gray-400 hover:text-red-600 transition-colors">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+            <!-- Boutons Edit & Delete -->
+            <div class="absolute top-4 right-4 space-x-3 cursor-pointer z-50 flex">
+                <svg wire:click="delete('{{ $formation->id }}')" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6 text-gray-400 hover:text-red-600 transition-colors">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
                 </svg>
-                <svg wire:click="edit('{{ $formation->id }}')" xmlns="http://www.w3.org/2000/svg" fill="none"
-                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                    class="h-6 w-6 text-gray-400 hover:text-blue-600 transition-colors">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                <svg wire:click="edit('{{ $formation->id }}')" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6 text-gray-400 hover:text-blue-600 transition-colors">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
                 </svg>
             </div>
-           
+
+            
         </div>
         @endforeach
+   
     </div>
 
     <!-- Pagination -->
@@ -95,6 +107,7 @@
                 {{ $updateData ? 'Edit Formation' : 'Add Formation' }}
             </h2>
             <form class="space-y-6" wire:submit="formation" enctype="multipart/form-data">
+
                 <div>
                     <label class="lock text-sm font-medium text-gray-300 ">Class Name :</label>
                     <input type="text" wire:model="class_name" placeholder="Enter Class Name"

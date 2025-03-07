@@ -14,6 +14,8 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/css/calendar.css', 'resources/js/app.js'])
         <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
+        <!-- sweetAlert-->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
         <link href="https://unpkg.com/lucide-icons/dist/umd/lucide.css" rel="stylesheet">
         <script src="https://unpkg.com/lucide-icons"></script>
