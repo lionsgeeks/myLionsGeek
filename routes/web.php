@@ -46,12 +46,9 @@ Route::get('/updateComputer', [EditComputer::class, 'updateView']);
 Route::get('/computer/update/{computer}', [ComputerController::class, 'computerUpdate']);
 
 Route::get('/reservations', [ReservationController::class, 'index'])->name('reservations');
-<<<<<<< Updated upstream
 Route::get('/add_password/{user}', [UserController::class, 'addPasswordView']);
 Route::post('/add_password/{user}', [UserController::class, 'setPassword'])->name('user.add_password');
-=======
 Route::get('/attendances/{id}', [AttendancesController::class, 'index'])->name('attendances');
->>>>>>> Stashed changes
 
 
 require __DIR__.'/auth.php';

@@ -20,30 +20,34 @@ class AttendancesCreate extends Component
         // Extract the ID by getting the substring after the last slash
         $id = substr($url, $lastSlashPos + 1);
         $this->formation_id = $id;
+        $this->loadEvent();
+  
+    }
 
-  $this->attendances = Attendances::select('staff_name', 'attendance_day')
+    public function loadEvent(){
+        $this->attendances = Attendances::select('staff_name', 'attendance_day')
         ->get()
         ->map(function ($attendance) {
             return [
                 'title' => $attendance->staff_name,
                 'start' => $attendance->attendance_day,
+                
             ];
         })->toArray();
     }
-
     protected $listeners = ['addAttendances'];
 
     public function addAttendances($attendance_day)
     {
         $this->staff_name = auth()->user()->name;
 
-        // Store the attendance in the database
         Attendances::create([
             'staff_name' => $this->staff_name,
             'attendance_day' => $attendance_day,
-            'formation_id' => $this->formation_id, // ✅ Corrected syntax
+            'formation_id' => $this->formation_id, 
         ]);
-        
+        $this->loadEvent();
+        $this->dispatch("eventloaded",events:$this->attendances);
         return back();
         // dd( 'Attendance added successfully!');
     }
