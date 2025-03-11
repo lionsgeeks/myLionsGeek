@@ -24,41 +24,37 @@ class Image extends Model
         if ($images) {
             if (is_array($images)) {
                 foreach ($images as $image) {
-                    $fileSize = $image->getSize();
-                    if ($fileSize >= 1024) {
-                        $imageName = time() . '_' . $image->getClientOriginalName();
+                    $fileSize = $image->getSize() / 1024 / 1024;
+                    $fileSize = round($fileSize, 2);
+
+                    $imageName = time() . '_' . $image->getClientOriginalName();
+
+                    if ($fileSize >= 3) {
                         $img = $manager->read($image);
-                        $img->toJpeg(80);
-                        $ressource->images()->create([
-                            'path' => $imageName
-                        ]);
-                        $image->storeAs('images/' . $name, $imageName, 'public');
+                        $img->toJpeg(20)->save(storage_path("app/public/images/". $name . "/" . $imageName));
                     } else {
-                        $imageName = time() . '_' . $image->getClientOriginalName();
-                        $ressource->images()->create([
-                            'path' => $imageName
-                        ]);
                         $image->storeAs('images/' . $name, $imageName, 'public');
                     }
+                    $ressource->images()->create([
+                        'path' => $imageName
+                    ]);
                 }
-            } else {
+            }
+            else {
+                $fileSize = $images->getSize() / 1024 / 1024;
+                $fileSize = round($fileSize, 2);
 
-                $fileSize = $images->getSize();
-                if ($fileSize >= 1024) {
-                    $imageName = time() . '_' . $images->getClientOriginalName();
+                $imageName = time() . '_' . $images->getClientOriginalName();
+
+                if ($fileSize >= 3) {
                     $img = $manager->read($images);
-                    $img->toJpeg(80);
-                    $ressource->images()->create([
-                        'path' => $imageName
-                    ]);
-                    $images->storeAs('images/' . $name, $imageName, 'public');
+                    $img->toJpeg(20)->save(storage_path("app/public/images/". $name . "/" . $imageName));
                 } else {
-                    $imageName = time() . '_' . $images->getClientOriginalName();
-                    $ressource->images()->create([
-                        'path' => $imageName
-                    ]);
                     $images->storeAs('images/' . $name, $imageName, 'public');
                 }
+                $ressource->images()->create([
+                    'path' => $imageName
+                ]);
             }
         }
     }

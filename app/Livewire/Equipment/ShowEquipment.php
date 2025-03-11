@@ -80,37 +80,7 @@ class ShowEquipment extends Component
         // $this->images = $equipment->images()->first()->path;
     }
 
-    // update equipment
-    // public function update(Equipment $equipment)
-    // {
-    //     $this->validate();
 
-    //         $equipment->update([
-    //             'reference' => $this->reference,
-    //             'mark' => $this->mark,
-    //             'equipment_type' => $this->equipment_type,
-    //         ]);
-
-    //         if ($this->images) {
-    //             $storage = Storage::disk("public");
-
-    //             // Delete old image if exists
-    //             $oldImage = $equipment->images->first();
-    //             if ($oldImage) {
-    //                 $storage->delete($oldImage->path);
-    //                 $oldImage->delete();
-    //             }
-
-    //             // Store new image
-    //             $newImagePath = $this->images->store("images/equipment", "public");
-
-    //             // Save new image in the morph table
-    //             $equipment->images()->create([
-    //                 'path' => $newImagePath,
-    //             ]);
-    //         }
-    //         $this->resetForm();
-    // }
 
     // confirm delete
     public function confirmDelete($id)
@@ -161,6 +131,7 @@ class ShowEquipment extends Component
                 $query->where('equipment_type', 'like', '%' . $this->equipmentType . '%');
             });
         }
-        return view('livewire.equipment.show-equipment', ['equipments' => $EquipmentQuery->paginate(8)]);
+        return view('livewire.equipment.show-equipment', ['equipments' => $EquipmentQuery->get()]);
+        // return view('livewire.equipment.show-equipment', ['equipments' => $EquipmentQuery->paginate(8)]);
     }
 }

@@ -114,13 +114,13 @@
                                 class="text-yellow-500">{{ $equipment->equipment_type }}</span></h1>
                         <h1 class="">State : <span class="text-yellow-500">{{ $equipment->state === 1 ? "khdam" : "khasar" }}</span></h1>
                     </div>
-                    <div class="flex flex-col items-center absolute right-0 top-1 z-20">
+                    <div class="flex flex-col items-center absolute right-0 top-1 ">
                         <button class=""
                             wire:click="confirmDelete({{ $equipment->id }})">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#ef4444" d="M19 4h-3.5l-1-1h-5l-1 1H5v2h14M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6z"/></svg>
                         </button>
                         @if ($deleteModal === $equipment->id)
-                            <div class="w-full h-full flex items-center justify-center fixed left-0 top-0 bg-[#000000b3]  ">
+                            <div class="w-full h-full flex items-center justify-center fixed left-0 top-0 bg-[#000000b3] z-30 ">
                                 <div class="p-5 gap-2 flex flex-col items-center bg-[#111827] min-w-[30vw] rounded-md ">
                                     <h1>Are You Sure You Want To Delete This Equipment</h1>
                                     <div>
