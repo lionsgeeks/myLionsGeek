@@ -70,7 +70,7 @@ class PlacesCreate extends Component
     // TODO: add auth later - only admins/mods can delete
     public function delete(Places $place)
     {
-        Storage::disk('public')->delete($place->image);
+        // Storage::disk('public')->delete($place->image);
         $place->delete();
     }
 
@@ -84,6 +84,11 @@ class PlacesCreate extends Component
     }
 
     public function resetting()
+    {
+        $this->reset();
+        $this->showModal = false;
+    }
+    public function cancel()
     {
         $this->reset();
         $this->showModal = false;

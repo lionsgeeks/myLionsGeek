@@ -1,24 +1,25 @@
-<div class="bg-dark p-10">
+<div class="bg-[#171717] p-10 min-h-screen text-white">
+    <h1 class="text-3xl text-alpha font-bold px-7 pb-8">Places</h1>
     <div class="ml-[2vw] mb-12 flex gap-3">
-        <input type="text" wire:model.live='searchName' placeholder="Search by Name" class="rounded ">
-        <select name="searchType" id="searchType" wire:model.change='searchType' class="rounded">
+        <input type="text" wire:model.live='searchName' placeholder="Search by Name" class="w-[15vw] bg-[#2E2E2E] focus:ring-2 focus:border-none focus:ring-alpha focus:outline-none rounded-md placeholder:text-white placeholder:text-sm">
+        <select name="searchType" id="searchType" wire:model.change='searchType' class="w-[13vw] text-white bg-[#2E2E2E] focus:ring-2 focus:border-none focus:ring-alpha focus:outline-none rounded-md"        >
             <option value="" selected>Select Type</option>
             <option value="studios">Studios</option>
             <option value="co_work">Co-Work</option>
             <option value="meeting_room">Meeting Room</option>
         </select>
-        <select name="searchState" id="searchState" wire:model.change='searchState' class="rounded">
+        <select name="searchState" id="searchState" wire:model.change='searchState' class="w-[10vw] text-white bg-[#2E2E2E] focus:ring-2 focus:border-none focus:ring-alpha focus:outline-none rounded-md">
             <option value="" selected>Select State</option>
             <option value="1">Active</option>
             <option value="0">Inactive</option>
         </select>
-        <button wire:click='resetting' class="bg-alpha text-black p-2 rounded">
+        <button wire:click='resetting' class="px-4 py-2 bg-yellow-500 text-black font-semibold rounded-md  transition">
             Reset Filters
         </button>
     </div>
     <div class="grid grid-cols-3 gap-10 px-[2vw]">
         <div wire:click="$set('showModal', true)"
-            class="flex flex-col items-center justify-center border-dashed border-2 border-white h-[20.9rem] bg-dark rounded-lg hover:shadow-lg transition-shadow duration-300">
+            class="flex flex-col items-center justify-center border-dashed border-2 border-white h-[20.9rem] bg-[#171717] rounded-lg hover:shadow-lg transition-shadow duration-300">
             <button class="text-white text-4xl font-bold hover:scale-110 transition-transform duration-300">+</button>
             <span class="text-white mt-2 text-lg font-medium">Add Place</span>
         </div>
@@ -27,13 +28,27 @@
         @foreach ($this->places as $place)
             <div class="rounded-lg overflow-hidden  shadow-xl hover:shadow-xl transition-shadow duration-300">
                 <div class="relative">
-                    @foreach ($place->images as $image)
-                        {{-- tempo fix before carousel --}}
-                        @if ($loop->iteration == 1)
-                            <img class="rounded-t-lg w-full h-60 object-cover"
-                                src="{{ asset('storage/images/places/' . $image->path) }}" alt="">
-                        @endif
-                    @endforeach
+                    <div x-data="{ activeIndex: 0, images: {{ $place->images->pluck('path') }} }" class="relative w-full">
+                        <div class="overflow-hidden rounded-t-lg h-60">
+                            <template x-for="(image, index) in images" :key="index">
+                                <img :src="'/storage/images/places/' + image" 
+                                     alt="Image"
+                                     class="absolute inset-0 w-full h-60 object-cover transition-opacity duration-500"
+                                     x-show="activeIndex === index">
+                            </template>
+                        </div>
+                    
+                        <button @click="activeIndex = (activeIndex > 0) ? activeIndex - 1 : images.length - 1"
+                                class="absolute top-1/2 left-2 transform -translate-y-1/2  text-white p-2 rounded-full text-4xl">
+                            ‹
+                        </button>
+                    
+                        <button @click="activeIndex = (activeIndex < images.length - 1) ? activeIndex + 1 : 0"
+                                class="absolute top-1/2 right-2 transform -translate-y-1/2  text-white p-2 rounded-full text-4xl">
+                            ›
+                        </button>   
+                    </div>
+                    
                     <h1
                         class="absolute top-2 right-3 capitalize px-3 py-1 rounded-lg bg-[#fee7147c] text-white text-sm font-semibold">
                         {{ str_replace('_', ' ', $place->place_type) }}
