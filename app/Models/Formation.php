@@ -22,4 +22,7 @@ class Formation extends Model
     public function attendances(){
         return $this->hasMany(attendances::class);
     }
+    public function users(){
+        return $this->hasMany(User::class);
+    }
 }

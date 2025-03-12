@@ -39,7 +39,9 @@ Route::get('/equipment',[EquipmentController::class,'index'])->middleware(["auth
 Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
-Route::view("formation", "formation");
+    
+Route::view("formation", "formation")->middleware(["auth"]);
+Route::get('/attendances/calendar/{id}', [AttendancesController::class, 'index'])->name('attendances')->middleware(["auth"]);
 
 Route::get('/create-computers', [CreateComputer::class, 'createComputer'])->name('computer.create');
 Route::get('/updateComputer', [EditComputer::class, 'updateView']);
@@ -48,7 +50,6 @@ Route::get('/computer/update/{computer}', [ComputerController::class, 'computerU
 Route::get('/reservations', [ReservationController::class, 'index'])->name('reservations');
 Route::get('/add_password/{user}', [UserController::class, 'addPasswordView']);
 Route::post('/add_password/{user}', [UserController::class, 'setPassword'])->name('user.add_password');
-Route::get('/attendances/{id}', [AttendancesController::class, 'index'])->name('attendances');
 
 
 require __DIR__.'/auth.php';

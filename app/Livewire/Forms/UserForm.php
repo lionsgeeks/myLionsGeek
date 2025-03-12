@@ -12,7 +12,7 @@ use Livewire\Form;
 class UserForm extends Form
 {
     public ?User $user;
-    public $name, $email, $phone, $cin, $role = "Select Role", $status = "Select Status", $formation_id = 'Select Formation', $image;
+    public $name, $email, $phone, $cin, $role = "Select Role", $status = "Select Status", $formation_id = null, $image;
     public function store()
     {
         $this->validate([
@@ -22,8 +22,10 @@ class UserForm extends Form
             'cin' => 'required',
             'role' => 'required',
             'status' => 'required',
-            'image' => 'nullable|mimes:jpeg,png,jpg,svg|max:2048'
+            'image' => 'nullable|mimes:jpeg,png,jpg,svg|max:2048',
+            'formation_id' => "nullable",
         ]);
+        $formationId = !empty($this->formation_id) ? $this->formation_id : null;
         // dd('inside the store');
         // dd($this->status);
         $user = User::create([
@@ -32,6 +34,7 @@ class UserForm extends Form
             'cin' => $this->cin,
             'phone' => $this->phone,
             'status' => $this->status,
+            'formation_id' => $formationId,
         ]);
         $baseUrl = url()->to('/');
         $link = $baseUrl . '/add_password/' . $user->id;

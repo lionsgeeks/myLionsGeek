@@ -48,7 +48,7 @@ class AttendancesCreate extends Component
         ]);
         $this->loadEvent();
         $this->dispatch("eventloaded",events:$this->attendances);
-        return back();
+        return redirect("/users");
         // dd( 'Attendance added successfully!');
     }
     

@@ -65,9 +65,11 @@
                 </div>
                 <!-- Boutons Participant et Attendances en bas -->
                 <div class=" flex ml-16 gap-3">
-                    <button wire:key="participant-{{ $formation->id }}" class="px-4 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition">
-                        Participant
-                    </button>
+                    <a href="/users">
+                        <button wire:key="participant-{{ $formation->id }}" class="px-4 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition">
+                            Participant
+                        </button>
+                    </a>
                     <a href="{{ route('attendances', $formation->id) }}">
                         <button class="px-4 py-2 bg-green-600 text-white rounded-lg shadow-md hover:bg-green-700 transition">
                             Attendances

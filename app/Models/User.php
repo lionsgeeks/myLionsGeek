@@ -62,4 +62,7 @@ class User extends Authenticatable
     {
         return $this->morphMany(Image::class , 'imagable');
     }
+    public function formation(){
+        return $this->belongsTo(Formation::class);
+    }
 }

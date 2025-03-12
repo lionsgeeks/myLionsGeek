@@ -80,13 +80,14 @@
     <div class="mb-4">
         <label for="status" class="block text-sm font-medium text-gray-300 mb-1">Select
             Formation:</label>
-        <select wire:model="userForm.formation_id" id="status"
+            <select wire:model="userForm.formation_id" id="status"
             class="w-full border border-gray-600 rounded-lg p-2 bg-gray-800 text-white focus:ring-2 focus:ring-[#fee814] focus:outline-none">
-            <option disabled>Select Formation</option>
+            <option value="">Select Formation</option> 
             @foreach ($formations as $formation)
-                <option value="{{ $formation->id }}">{{ $formation->formation_name }}</option>
+                <option value="{{ $formation->id }}">{{ $formation->formation_name }} ({{ $formation->class_name }})</option>
             @endforeach
         </select>
+        
         @error('userForm.status')
             <em class="text-red-600">{{ $message }}</em>
         @enderror
