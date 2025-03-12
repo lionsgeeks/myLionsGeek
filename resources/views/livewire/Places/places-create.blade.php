@@ -38,16 +38,21 @@
                             </template>
                         </div>
                     
-                        <button @click="activeIndex = (activeIndex > 0) ? activeIndex - 1 : images.length - 1"
-                                class="absolute top-1/2 left-2 transform -translate-y-1/2  text-white p-2 rounded-full text-4xl">
-                            ‹
-                        </button>
+                        <template x-if="images.length > 1">
+                            <div>
+                                <button @click="activeIndex = (activeIndex > 0) ? activeIndex - 1 : images.length - 1"
+                                        class="absolute top-1/2 left-2 transform -translate-y-1/2 text-white p-2 rounded-full text-4xl">
+                                    ‹
+                                </button>
                     
-                        <button @click="activeIndex = (activeIndex < images.length - 1) ? activeIndex + 1 : 0"
-                                class="absolute top-1/2 right-2 transform -translate-y-1/2  text-white p-2 rounded-full text-4xl">
-                            ›
-                        </button>   
+                                <button @click="activeIndex = (activeIndex < images.length - 1) ? activeIndex + 1 : 0"
+                                        class="absolute top-1/2 right-2 transform -translate-y-1/2 text-white p-2 rounded-full text-4xl">
+                                    ›
+                                </button>  
+                            </div>
+                        </template>
                     </div>
+                    
                     
                     <h1
                         class="absolute top-2 right-3 capitalize px-3 py-1 rounded-lg bg-[#fee7147c] text-white text-sm font-semibold">
