@@ -16,7 +16,7 @@ new class extends Component {
 }; ?>
 
 
-<nav class="bg-dark border-b px-9 border-gray-800">
+<nav class="bg-[#171717] border-b px-9 border-gray-800">
     <div class="max-w-[1600px] mx-auto px-4">
         <div class="flex items-center justify-between h-16">
             <a href="#" class="flex items-center pl-5 hover:opacity-90 transition-opacity">

@@ -17,9 +17,9 @@
     <body class="font-sans text-gray-900 antialiased">
         <div class="min-h-screen w-full flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-[#171717]">
             <div>
-                <a href="/" wire:navigate>
+                {{-- <a href="/" wire:navigate>
                     <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-                </a>
+                </a> --}}
             </div>
 
             <div class="w-full sm:max-w-5xl mt-6 px-6 py-4 h-[75vh] overflow-hidden sm:rounded-lg">
