@@ -2,18 +2,18 @@
     <h1 class="text-3xl text-alpha font-bold px-7 pb-8">Places</h1>
     <div class="ml-[2vw] mb-12 flex gap-3">
         <input type="text" wire:model.live='searchName' placeholder="Search by Name" class="w-[15vw] bg-[#2E2E2E] focus:ring-2 focus:border-none focus:ring-alpha focus:outline-none rounded-md placeholder:text-white placeholder:text-sm">
-        <select name="searchType" id="searchType" wire:model.change='searchType' class="w-[13vw] text-white bg-[#2E2E2E] focus:ring-2 focus:border-none focus:ring-alpha focus:outline-none rounded-md"        >
+        <select name="searchType" id="searchType" wire:model.change='searchType' class="w-[13vw] text-sm text-white bg-[#2E2E2E] focus:ring-2 focus:border-none focus:ring-alpha focus:outline-none rounded-md"        >
             <option value="" selected>Select Type</option>
             <option value="studios">Studios</option>
             <option value="co_work">Co-Work</option>
             <option value="meeting_room">Meeting Room</option>
         </select>
-        <select name="searchState" id="searchState" wire:model.change='searchState' class="w-[10vw] text-white bg-[#2E2E2E] focus:ring-2 focus:border-none focus:ring-alpha focus:outline-none rounded-md">
+        <select name="searchState" id="searchState" wire:model.change='searchState' class="w-[10vw] text-sm text-white bg-[#2E2E2E] focus:ring-2 focus:border-none focus:ring-alpha focus:outline-none rounded-md">
             <option value="" selected>Select State</option>
             <option value="1">Active</option>
             <option value="0">Inactive</option>
         </select>
-        <button wire:click='resetting' class="px-4 py-2 bg-yellow-500 text-black font-semibold rounded-md  transition">
+        <button wire:click='resetting' class="px-4 py-2 bg-yellow-500 text-black font-semibold rounded-md text-sm transition">
             Reset Filters
         </button>
     </div>
