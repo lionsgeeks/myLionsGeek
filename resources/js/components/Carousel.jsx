@@ -4,7 +4,7 @@ import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 
-const Carousel = ({ images }) => {
+const Carousel = ({ images , name }) => {
   if (!images || images.length === 0) return null;
 
   return (
@@ -22,7 +22,7 @@ const Carousel = ({ images }) => {
         <SwiperSlide key={index} className="swiper-slide">
           <img
             className="rounded-t-md object-cover w-full h-[27.5vh]"
-            src={`/storage/images/equipment/${image.path}`}
+            src={`/storage/images/${name}/${image.path}`}
             alt=""
           />
         </SwiperSlide>

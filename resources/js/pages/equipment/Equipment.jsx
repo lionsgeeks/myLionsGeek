@@ -16,7 +16,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import AppLayout from '@/layouts/app-layout';
-import { useForm, usePage } from '@inertiajs/react';
+import { router, useForm, usePage } from '@inertiajs/react';
 import { Pencil, Plus, Search, Trash2 } from 'lucide-react';
 import { use, useEffect, useState } from 'react';
 import Carousel from '../../components/Carousel';
@@ -54,10 +54,10 @@ export default function Equipment() {
     const handleImageUpload = (e) => {
         const file = e.target.files[0]
         if (file) {
-          setData({ ...data, image: file })
-          setImagePreview(URL.createObjectURL(file))
+            setData({ ...data, image: file })
+            setImagePreview(URL.createObjectURL(file))
         }
-      }
+    }
 
 
 
@@ -99,12 +99,12 @@ export default function Equipment() {
 
 
 
-    const filteredEquipments = equipments.filter((equipment) => {
+    const filteredEquipments = equipments.data.filter((equipment) => {
         const reference = equipment.reference.toLowerCase();
         const mark = equipment.mark.toLowerCase();
         const search = searchQuery.toLowerCase();
         const matchesSearch = reference.includes(search) || mark.includes(search);
-        const matchesType = filterType === "all" || equipment.equipment_type  === filterType;
+        const matchesType = filterType === "all" || equipment.equipment_type === filterType;
         return matchesSearch && matchesType;
     });
 
@@ -148,9 +148,9 @@ export default function Equipment() {
         e.preventDefault();
         console.log(data)
         if (currentEquipment) {
-            post(route('equipment.update',currentEquipment),{
+            post(route('equipment.update', currentEquipment), {
                 _method: 'put',
-                data:data,
+                data: data,
             })
             setIsEditModalOpen(false);
             setCurrentEquipment(null);
@@ -161,27 +161,27 @@ export default function Equipment() {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <div className="container mx-auto p-6">
-                <h1 className="mb-8 text-4xl font-bold text-yellow-400">Equipment</h1>
+                <h1 className="mb-8 text-4xl font-bold">Equipment</h1>
 
                 {/* Top Bar */}
                 <div className="mb-8 flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
                     <div className="flex w-full flex-col gap-4 md:w-auto md:flex-row">
-                        <div className="relative w-full md:w-64">
+                        <div className="relative flex gap-5 w-full md:w-64">
                             <Search className="absolute top-1/2 left-3 -translate-y-1/2 transform text-gray-400" size={18} />
                             <Input
                                 type="text"
                                 placeholder="search"
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                className={`w-full border-gray-700 ${appearance === "dark" ? "bg-[#171717] text-white" : ""}  pl-10 text-white`}
+                                className={`w-96 border-gray-300 ${appearance === "dark" ? "bg-[#171717] text-white" : ""}  pl-10 text-white`}
                             />
                         </div>
 
                         <Select value={filterType} onValueChange={(value) => setFilterType(value)}>
-                            <SelectTrigger className={`w-full border-gray-700 ${appearance === "dark" ? "bg-[#171717] text-white" : ""} md:w-40`}>
+                            <SelectTrigger className={`w-80 border-gray-300 ${appearance === "dark" ? "bg-[#171717] text-white" : ""} md:w-40`}>
                                 <SelectValue placeholder="Filter by type" />
                             </SelectTrigger>
-                            <SelectContent className={`border-gray-700 ${appearance === "dark" ? "bg-[#171717] text-white" : ""} `}>
+                            <SelectContent className={`border-gray-300 ${appearance === "dark" ? "bg-[#171717] text-white" : ""} `}>
                                 <SelectItem value="all">all</SelectItem>
                                 <SelectItem value="camera">camera</SelectItem>
                                 <SelectItem value="son">son</SelectItem>
@@ -192,14 +192,14 @@ export default function Equipment() {
                             </SelectContent>
                         </Select>
 
-                        <Button variant="default" className="bg-yellow-500 text-black hover:bg-yellow-600" onClick={resetFilters}>
+                        <Button variant="default" className="bg-alpha text-black hover:bg-yellow-600" onClick={resetFilters}>
                             Reset Filter
                         </Button>
                     </div>
 
                     <Button
                         variant="default"
-                        className="w-full bg-yellow-500 text-black hover:bg-yellow-600 md:w-auto"
+                        className="w-full bg-alpha text-black hover:bg-yellow-600 md:w-auto"
                         onClick={() => setIsAddModalOpen(true)}
                     >
                         <Plus size={18} className="mr-2" /> Add Equipment
@@ -209,10 +209,10 @@ export default function Equipment() {
                 {/* Equipment Cards */}
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
                     {filteredEquipments?.map((equipment) => (
-                        <div key={equipment.id} className={`relative overflow-hidden rounded-lg  ${appearance === "dark" ? "bg-[#171717] text-white" : "bg-[#fafafa] shadow-lg shadow-gray-400"} ` }>
+                        <div key={equipment.id} className={`relative overflow-hidden rounded-lg  ${appearance === "dark" ? "bg-[#171717] text-white" : "bg-[#fafafa] shadow-lg shadow-gray-400"} `}>
                             <div className="relative h-48 w-full">
                                 {equipment.images && equipment.images.length > 1 ? (
-                                    <Carousel images={equipment.images} />
+                                    <Carousel name="equipment" images={equipment.images} />
                                 ) : equipment.images && equipment.images.length === 1 ? (
                                     <img className="rounded-t-md h-[100%] w-[100%]" src={`/storage/images/equipment/${equipment.images[0].path}`} alt="" />
                                 ) : (
@@ -236,20 +236,20 @@ export default function Equipment() {
                             </div>
                             <div className="p-4">
                                 <p>
-                                    <span className="">Reference : </span>
-                                    <span className="text-yellow-400">{equipment.reference}</span>
+                                    <span className="text-yellow-500">Reference : </span>
+                                    <span className="">{equipment.reference}</span>
                                 </p>
                                 <p>
-                                    <span className="">Mark : </span>
-                                    <span className="text-yellow-400">{equipment.mark}</span>
+                                    <span className="text-yellow-500">Mark : </span>
+                                    <span className="">{equipment.mark}</span>
                                 </p>
                                 <p>
-                                    <span className="">Equipment Type : </span>
-                                    <span className="text-yellow-400">{equipment.equipment_type}</span>
+                                    <span className="text-yellow-500">Equipment Type : </span>
+                                    <span className="">{equipment.equipment_type}</span>
                                 </p>
                                 <p>
-                                    <span className="">State : </span>
-                                    <span className="text-yellow-400">{equipment.state === 'Work' ? 'Work' : 'Not Work'}</span>
+                                    <span className="text-yellow-500">State : </span>
+                                    <span className="">{equipment.state === 'Work' ? 'Work' : 'Not Work'}</span>
                                 </p>
                             </div>
                         </div>
@@ -336,7 +336,7 @@ export default function Equipment() {
                                         type="file"
                                         accept="image/*"
                                         multiple
-                                        onChange={(e) => setData('image', e.target.files )}
+                                        onChange={(e) => setData('image', e.target.files)}
                                         className={`${appearance === "dark" ? "bg-[#262626] text-white" : ""} `}
                                     />
                                 </div>
@@ -424,12 +424,12 @@ export default function Equipment() {
                                             className={`p-2 rounded-md  ${appearance === "dark" ? "bg-[#262626] text-white" : "border-2 border-gray-100"} `}
                                         >
                                             <option disabled selected value="">Select type</option>
-                                            <option selected={data.equipment_type === "camera" } value="camera">Camera</option>
-                                            <option selected={data.equipment_type === "son" } value="son">Son</option>
-                                            <option selected={data.equipment_type === "lumiere" } value="lumiere">Lumiere</option>
-                                            <option selected={data.equipment_type === "data/stockage" } value="data/stockage">Data/Stockage</option>
-                                            <option selected={data.equipment_type === "podcast" } value="podcast">Podcast</option>
-                                            <option selected={data.equipment_type === "other" } value="other">Other</option>
+                                            <option selected={data.equipment_type === "camera"} value="camera">Camera</option>
+                                            <option selected={data.equipment_type === "son"} value="son">Son</option>
+                                            <option selected={data.equipment_type === "lumiere"} value="lumiere">Lumiere</option>
+                                            <option selected={data.equipment_type === "data/stockage"} value="data/stockage">Data/Stockage</option>
+                                            <option selected={data.equipment_type === "podcast"} value="podcast">Podcast</option>
+                                            <option selected={data.equipment_type === "other"} value="other">Other</option>
                                         </select>
                                     </div>
                                 </div>
@@ -440,7 +440,7 @@ export default function Equipment() {
                                         type="file"
                                         accept="image/*"
                                         multiple
-                                        onChange={(e) => setData('image',e.target.files)}
+                                        onChange={(e) => setData('image', e.target.files)}
                                         className={`${appearance === "dark" ? "bg-[#262626] text-white" : ""} `}
                                     />
                                 </div>
@@ -492,6 +492,24 @@ export default function Equipment() {
                     </AlertDialogContent>
                 </AlertDialog>
             </div>
+            <div className="mt-6 flex gap-2 justify-center">
+    {equipments.links
+        .filter(link => !isNaN(link.label)) 
+        .map((link, index) => (
+            <button
+                key={index}
+                disabled={!link.url}
+                onClick={() => link.url && router.visit(link.url)}
+                className={`px-3 py-1 border rounded-full ${
+                    link.active ? ' text-alpha border-alpha font-bold' : ''
+                }`}
+                dangerouslySetInnerHTML={{ __html: link.label }}
+            />
+        ))}
+</div>
+
+
+
         </AppLayout>
     );
 }

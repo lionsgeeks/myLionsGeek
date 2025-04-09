@@ -4,7 +4,7 @@ import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { BookOpen, Cable, Folder, LayoutGrid } from 'lucide-react';
+import { BookOpen, Folder, LayoutGrid, MapPin, Cable } from 'lucide-react';
 import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
@@ -16,8 +16,14 @@ const mainNavItems: NavItem[] = [
     {
         title: 'Equipment',
         url: '/equipment',
-        icon: Cable ,
+        icon: Cable,
+
     },
+    {
+        title: 'Places',
+        url: '/places',
+        icon: MapPin,
+    }
 ];
 
 const footerNavItems: NavItem[] = [

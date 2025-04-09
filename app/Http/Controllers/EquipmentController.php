@@ -15,8 +15,10 @@ class EquipmentController extends Controller
     public function index(Request $request)
     {
         //
+        $equipment = Equipment::with('images')->paginate(6);
+
         return Inertia::render('equipment/Equipment', [
-            'equipments' => Equipment::with("images")->get(),
+            'equipments' => $equipment,
         ]);
     }
 
@@ -94,6 +96,5 @@ class EquipmentController extends Controller
         }
         $equipment->delete();
         return back();
-
     }
 }
